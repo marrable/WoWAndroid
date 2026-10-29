@@ -2,6 +2,20 @@
 
 Why things are the way they are, newest first.
 
+## 2026-10-30: How the touch pane reaches the game
+
+The controls are our own views in `wow/touch`, not an upstream `.icp` layout, because Enemy and Friend change what the pane shows and turn into aim sticks while held, which upstream's elements can't do. Gamepad input still goes through upstream's virtual gamepad: `WinHandler` sends the active profile's `GamepadState` while that profile is a virtual gamepad and `InputControlsView` is showing. So the Forever container gets a "WoW Touch" profile, and `InputControlsView` sits behind the pane, sized but covered. `ControlsProfile.loadElements` only marks a profile as a virtual gamepad when an element has gamepad-only bindings, so the profile carries one hidden button bound to A; without it the virtual gamepad switched off every time upstream reloaded the profile. Upstream's own logic then does the rest: it shows the virtual gamepad when nothing physical is connected and hides it when a controller connects, which is when the pane hides too.
+
+Tap to target is the touchpad's Touchscreen mode, switched on at the touchpad by the pane rather than through the container's Touchscreen mode setting, because that setting makes upstream hide the touch controls, which would switch the virtual gamepad off. Touches reach the pane through normal view dispatch, as in upstream's portrait mode, instead of landscape's routing of every touch to the controls overlay and touchpad. The pane's root is a FrameLayout so overlays upstream adds to the root, like the radial menu, still cover the screen.
+
+The Keyboard tab presses nothing when it opens. Opening chat with Enter was the mockup's plan, but on the login screen Enter logs in, and the app can't tell which screen the game is on. Channel buttons type `/s `, `/p ` and so on, which opens WoW's chat box on that channel, and the keyboard has its own Enter. Keys are US layout only. The game's render size is set at launch, so dragging the bar mid-game letterboxes until the next start.
+
+Local builds need `tools/fetch_components.sh` first (Proton, DXVK and the Turnip drivers, verified against `tools/components.sha256`); CI runs it, and without it Play fails with "Failed to extract Proton or graphics components."
+
+## 2026-10-30: Touch controls in a pane below the game, in landscape
+
+The goal is touch play on a Galaxy Z Fold 8 Wide (inner screen about 2448 by 1848, 4:3): the game on top, and below it a pane that switches between touch controls and a chat keyboard, so nothing sits over the game. `mockup.html` compared landscape with portrait at the same scale. Portrait had more room (a 16:9 game above the fold, about 77 mm of controls) and could reuse upstream's portrait mode, but landscape felt better to hold, so landscape it is. That means upstream's portrait mode can't be used as it is, since it locks the screen to portrait; the split has to be built for landscape. The trade-offs: at a 2:1 game the controls are only about 35 mm tall, so the bar between them is draggable from 16:9 to 21:9. The game's render size is set at launch, so a drag mid-game letterboxes until the next start. The touch layout uses one-tap action buttons and a Shift set that stays on, instead of WoW Forever's held trigger layers, which need a thumb that is busy on the stick.
+
 ## 2026-10-29: Hold Select for the keyboard on 3.3.5a
 
 Addons can't reach the app from the login, code and character screens, so typing there meant Back, then Keyboard. Claude offered two ways: open the keyboard by itself when the client starts, or a controller button. Daniel picked the button and asked for it to be part of Controller Menus, so it is only on while that add-on is installed (`PadKeyboardButton`, flagged on the container by `prepareLegacyLaunch`). The Lua can't open the keyboard, so the app watches the pad itself, before the controller profile turns buttons into keys.

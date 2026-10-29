@@ -95,6 +95,8 @@ import app.gamenative.ui.enums.Orientation
 import java.util.EnumSet
 import app.gamenative.externaldisplay.ExternalDisplayInputController
 import app.gamenative.externaldisplay.ExternalDisplaySwapController
+import app.gamenative.wow.touch.TouchPane
+import app.gamenative.wow.touch.TouchPaneSettings
 import app.gamenative.externaldisplay.SwapInputOverlayView
 import app.gamenative.ui.component.LsfgQuickMenuState
 import app.gamenative.ui.component.PerformanceQuickMenuState
@@ -1735,6 +1737,8 @@ fun XServerScreen(
     }
 
     val isPortrait = container.isPortraitMode
+    // WoW AndroWhere: touch controls in a pane below the game (wow/touch).
+    val touchPaneOn = TouchPaneSettings.isOn(container, isPortrait)
     // var launchedView by rememberSaveable { mutableStateOf(false) }
     Box(modifier = Modifier.fillMaxSize()) {
         key(isPortrait) {
@@ -1825,7 +1829,7 @@ fun XServerScreen(
                     ?.dispatchTouchEvent(event) == true
                 if (overlayHandled) return@pointerInteropFilter true
 
-                if (isPortrait) {
+                if (isPortrait || touchPaneOn) {
                     gameRoot?.dispatchTouchEvent(event)
                 } else {
                     val controlsHandled = if (areControlsVisible) {
@@ -1844,7 +1848,10 @@ fun XServerScreen(
             val dm = context.resources.displayMetrics
             val screenWidth = if (isPortrait) minOf(dm.widthPixels, dm.heightPixels) else dm.widthPixels
             val controlsHeightPortrait = screenWidth * 9 / 16
-            val mainRoot = if (isPortrait) {
+            val touchPane = if (touchPaneOn) TouchPane(context, TouchPaneSettings.aspectOf(container)) else null
+            val mainRoot = if (touchPane != null) {
+                touchPane
+            } else if (isPortrait) {
                 LinearLayout(context).apply {
                     orientation = LinearLayout.VERTICAL
                     setBackgroundColor(Color.TRANSPARENT)
@@ -1852,7 +1859,9 @@ fun XServerScreen(
             } else {
                 FrameLayout(context)
             }
-            val frameLayout = if (isPortrait) {
+            val frameLayout = if (touchPane != null) {
+                touchPane.gameFrame
+            } else if (isPortrait) {
                 val top = FrameLayout(context)
                 top.setBackgroundColor(Color.BLACK)
                 mainRoot.addView(top, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f))
@@ -2403,6 +2412,7 @@ fun XServerScreen(
                 setShooterModeConfig(currentShooterConfig)
             }
             PluviaApp.inputControlsView = icView
+            touchPane?.attach(xServerView.getxServer(), icView, PluviaApp.touchpadView, container)
 
             // Wire SHOW_KEYBOARD binding callback for overlay control buttons
             icView.setShowKeyboardCallback {
@@ -2413,7 +2423,9 @@ fun XServerScreen(
             xServerView.getxServer().winHandler.setInputControlsView(PluviaApp.inputControlsView)
 
             // Add InputControlsView (portrait: inside fixed-height container at bottom; landscape: overlay)
-            if (isPortrait) {
+            if (touchPane != null) {
+                touchPane.hostInputControls(icView)
+            } else if (isPortrait) {
                 val controlsContainer = FrameLayout(context).apply {
                     setBackgroundColor(Color.BLACK)
                 }

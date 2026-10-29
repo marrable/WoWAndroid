@@ -978,6 +978,8 @@ internal fun prepareLaunch(
     check(containerManager.hasContainer(CONTAINER_ID)) { "Container creation failed. Check system storage and logs." }
     containerManager.getContainerById(CONTAINER_ID)?.let {
         hideMouseToggle(it)
+        app.gamenative.wow.touch.TouchPaneSettings.applyTo(context, it)
+        app.gamenative.wow.touch.TouchProfile.applyTo(context, it, app.gamenative.wow.touch.TouchPaneSettings.isEnabled(context))
         it.saveData()
     }
     return CONTAINER_ID

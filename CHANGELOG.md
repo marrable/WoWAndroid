@@ -2,6 +2,13 @@
 
 Releases up to 0.4.0 are upstream's (YoruDev-Ryland/WoWForeverywhere), which this fork started from.
 
+## Unreleased
+
+- **Touch controls below the game.** Turn on **Settings** → **App** → **Touch controls below the game** to play WoW Forever by touch in landscape. The game sits at the top of the screen and the controls below it, so nothing covers the game. Drag the bar between them to make the game taller or shorter; it stays where you leave it, and the game's picture fits the new size at the next start. The controls hide while a controller is connected.
+- **The controls.** A stick to move and one to look, Jump, Clear target, Auto run and Use, twelve action buttons for keys 1 to =, and Shift for a second set of twelve that stays on until tapped again. Bags, Map, Character, Spellbook and the game menu are along the top. Tap anything in the game to target or click it.
+- **Targeting.** Hold **Enemy** or **Friend** and drag to aim at a target, then let go. Tap either one quickly to keep its targeting on: the action buttons change to that mode's choices, such as Last enemy, Assist, Self, Pet and Party 1 to 4, and the look stick aims. Tap it again to go back.
+- **Chat keyboard.** The **Keyboard** tab on the bar swaps the controls for a keyboard split between your thumbs, with numbers and symbols on 123. The middle has Say, Party, Guild, Whisper and Reply, which open the chat box on that channel, and Wave, Thank, Cheer, Lol and Bow, which send the emote at once.
+
 ## 0.8.8
 
 - **Keyboard on a button (3.3.5a).** With Controller Menus installed, hold Select for half a second to open the Android keyboard, and again to close it. It works on the login screen, the email code box, character names and in game, so you no longer need Back, then Keyboard. A quick press of Select still reaches the game as before. The login and character creation hints show it.

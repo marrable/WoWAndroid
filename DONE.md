@@ -12,6 +12,14 @@ What the app does, by area, with the version each feature came in. Versions up t
 - Stall watchdog writes what blocked the main thread to `crash_logs/` (0.3.0)
 - Touchscreen mode in the in-game menu: a tap clicks where the finger is, two fingers right-click, three fingers open the keyboard, pinch scrolls; saved per game (base)
 
+## Touch controls (WoW Forever)
+
+- Touch controls in a pane below the game in landscape, turned on in Settings → App; hidden while a controller is connected (unreleased)
+- Draggable bar between game and pane, 16:9 to 21:9, remembered; the game renders at that shape (unreleased)
+- Move and look sticks, Jump, Clear, Auto run, Use, a utility row, twelve action keys with a Shift set (unreleased)
+- Enemy and Friend: hold and drag to aim with Forever's own targeting modes, quick tap to keep a mode on with its buttons (Last enemy, Assist, Self, Pet, Party 1 to 4); tap on the game to target (unreleased)
+- Chat keyboard tab: split keys, 123 set, channel and emote buttons (unreleased)
+
 ## Installing and updating the game
 
 - Resumable, verified game installer from Blizzard's CDN to internal storage or SD card (0.2.0)

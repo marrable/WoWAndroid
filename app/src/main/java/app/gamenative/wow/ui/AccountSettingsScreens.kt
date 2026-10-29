@@ -33,6 +33,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import app.gamenative.wow.ui.components.FwButton
 import app.gamenative.wow.ui.components.FwChip
+import app.gamenative.wow.touch.TouchPaneSettings
 import app.gamenative.wow.ui.components.Links
 import app.gamenative.wow.ui.components.FwButtonKind
 import app.gamenative.wow.ui.components.FwProgress
@@ -61,7 +62,7 @@ internal fun FwSection(title: String, content: @Composable () -> Unit) {
 }
 
 private val settingsPanes = listOf(
-    PaneSpec("App", "App version and updates."),
+    PaneSpec("App", "App version, updates and touch controls."),
     PaneSpec("Battle.net", "One saved login for every Blizzard profile."),
     PaneSpec("Addon sources", "Where Addons searches, and your CurseForge key or proxy."),
     PaneSpec("About", "This device, the project and its source code."),
@@ -114,6 +115,24 @@ private fun AppPane(launcher: LauncherController, setHint: (String) -> Unit) {
                 modifier = Modifier.hint("Installs over this version and keeps your settings, logins, game files and addons.", setHint),
             )
         }
+    }
+    TouchPaneSetting(setHint)
+}
+
+/** Settings, App: the touch controls pane below the game, for WoW Forever in landscape. */
+@Composable
+private fun TouchPaneSetting(setHint: (String) -> Unit) {
+    val context = LocalContext.current
+    var on by remember { mutableStateOf(TouchPaneSettings.isEnabled(context)) }
+    val hint = "WoW Forever in landscape: the game on top and touch controls below it. They hide while a controller is connected. Takes effect at the next Play."
+    val set = { value: Boolean ->
+        TouchPaneSettings.setEnabled(context, value)
+        on = value
+    }
+    Text("Touch controls below the game", style = Fw.Text)
+    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+        FwChip("On", on, { set(true) }, Modifier.hint(hint, setHint))
+        FwChip("Off", !on, { set(false) }, Modifier.hint(hint, setHint))
     }
 }
 

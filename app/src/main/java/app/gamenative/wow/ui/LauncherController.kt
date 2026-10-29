@@ -46,6 +46,7 @@ import app.gamenative.wow.profile.Profile
 import app.gamenative.wow.ui.addons.AddonProfile
 import app.gamenative.wow.profile.ProfileAddons
 import app.gamenative.wow.profile.Profiles
+import app.gamenative.wow.touch.TouchPaneSettings
 import java.io.File
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
@@ -376,7 +377,7 @@ class LauncherController(
             needsStoragePermission = true
             return
         }
-        launch { screenSize, onStatus ->
+        launch(touchPane = TouchPaneSettings.isEnabled(context)) { screenSize, onStatus ->
             applyProfileAddons(File(gamePath, "${product.flavorDir}/WTF"))
             prepareLaunch(context, File(gamePath), product, gpu, screenSize, onStatus)
         }
@@ -531,13 +532,14 @@ class LauncherController(
         }
     }
 
-    private fun launch(prepare: (screenSize: String, onStatus: (String) -> Unit) -> String) {
+    private fun launch(touchPane: Boolean = false, prepare: (screenSize: String, onStatus: (String) -> Unit) -> String) {
         isLaunching = true
         errorMessage = null
         statusText = "Preparing components..."
         launchJob = scope.launch {
             try {
-                val screenSize = fitScreenSizeToWindow(context, gpu.screenSize)
+                // With the touch pane on, the game renders at the shape of its part of the screen.
+                val screenSize = if (touchPane) TouchPaneSettings.renderSize(context, gpu.screenSize) else fitScreenSizeToWindow(context, gpu.screenSize)
                 val containerId = withContext(Dispatchers.IO) {
                     prepare(screenSize) { msg -> scope.launch(Dispatchers.Main) { statusText = msg } }
                 }

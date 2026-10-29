@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Touch Controls Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Sora:wght@600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --page: #EFE6D6; --text: #10171A; --muted: #5E584D; --card: #E5DAC6; --line: #CBBFA9;
+  --brass: #C9A06A; --brass-ink: #1D150B;
+  /* Device internals stay dark in both themes: they stand for the game screen. */
+  --ink: #10171A; --stone: #19232A; --stone2: #24323A; --rule: #30414A; --bone: #EFE6D6; --ash: #A8A08F;
+  --hostile: #D2564B; --friendly: #8CC08E;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --page: #10171A; --text: #EFE6D6; --muted: #A8A08F; --card: #19232A; --line: #30414A; }
+}
+:root[data-theme="dark"] { --page: #10171A; --text: #EFE6D6; --muted: #A8A08F; --card: #19232A; --line: #30414A; }
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--page); color: var(--text); font: 14px/1.5 Manrope, system-ui, sans-serif; }
+main { max-width: 1260px; margin: 0 auto; padding: 24px 16px 48px; }
+h1 { font: 600 22px/1.3 Sora, Manrope, sans-serif; margin: 0 0 4px; }
+h2 { font: 600 15px/1.3 Sora, Manrope, sans-serif; margin: 0 0 2px; }
+.lede { color: var(--muted); margin: 0 0 16px; max-width: 80ch; }
+
+.bar { display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; margin-bottom: 22px; }
+.bar label { display: inline-flex; gap: 8px; align-items: center; color: var(--muted); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+.seg button { font: 600 13px Manrope, sans-serif; color: var(--text); background: transparent; border: 0; padding: 6px 14px; cursor: pointer; }
+.seg button.on { background: var(--brass); color: var(--brass-ink); }
+.btn { font: 600 13px Manrope, sans-serif; color: var(--text); background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 6px 14px; cursor: pointer; }
+button:focus-visible { outline: 3px solid var(--brass); outline-offset: 2px; }
+
+.stage { display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start; }
+.col { flex: 0 1 664px; min-width: 0; }
+.col .sub { color: var(--muted); margin: 0 0 10px; font-size: 13px; }
+.fit { width: 100%; position: relative; }
+.fit > .device { position: absolute; top: 0; left: 0; transform-origin: top left; }
+.readout { margin-top: 10px; font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--muted); }
+.readout b { color: var(--text); font-weight: 600; }
+.sent { margin-top: 8px; font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--muted); min-height: 1.4em; }
+.sent b { color: var(--text); font-weight: 600; }
+
+.side { flex: 1 1 300px; min-width: 0; display: grid; gap: 16px; }
+.side section { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; }
+.side ul, .side ol { margin: 6px 0 0; padding-left: 18px; }
+.side li { margin: 3px 0; }
+.side .try li { margin: 5px 0; }
+
+/* ---------- device ---------- */
+.device { padding: 14px; background: #050708; border-radius: 30px; }
+.screen { position: relative; overflow: hidden; border-radius: 16px; background: #000; display: flex; flex-direction: column;
+  width: 636px; height: 480px; color: var(--bone); font-family: Manrope, sans-serif; }
+
+.game { position: relative; flex: none; height: var(--gh, 318px); overflow: hidden; background: #000; touch-action: none; cursor: pointer; }
+.game img.shot { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+
+/* Stand-in scene, used only until a screenshot is loaded. */
+.scene { position: absolute; inset: 0; background: #7E9A98; }
+.scene .sun { position: absolute; width: 46px; height: 46px; border-radius: 50%; background: #E9D9A8; top: 12%; left: 62%; }
+.scene .hill { position: absolute; left: 0; right: 0; bottom: 0; }
+.scene .h1 { top: 34%; background: #55705A; clip-path: polygon(0 40%, 18% 10%, 36% 38%, 55% 0, 74% 30%, 100% 8%, 100% 100%, 0 100%); }
+.scene .h2 { top: 52%; background: #3E5641; clip-path: polygon(0 30%, 25% 0, 48% 35%, 70% 12%, 100% 40%, 100% 100%, 0 100%); }
+.scene .ground { position: absolute; left: 0; right: 0; bottom: 0; top: 72%; background: #6B5638; }
+.scene .fig { position: absolute; width: 14px; height: 30px; margin-left: -7px; border-radius: 6px 6px 2px 2px; background: #1E2220; }
+.scene .fig::before { content: ""; position: absolute; width: 12px; height: 12px; border-radius: 50%; background: inherit; top: -11px; left: 1px; }
+.scene .hero { left: 50%; bottom: 20%; }
+.scene .foe { left: 70%; bottom: 30%; background: #5A1F1A; width: 22px; height: 18px; border-radius: 8px 10px 3px 3px; }
+.scene .foe::before { width: 10px; height: 9px; top: -4px; left: 15px; }
+.scene .ally { left: 34%; bottom: 26%; background: #24402A; }
+.scene .uf { position: absolute; height: 26px; width: 92px; background: rgba(0,0,0,.55); border: 1px solid #6B5A3A; border-radius: 4px; padding: 4px 5px; }
+.scene .uf i { display: block; height: 6px; margin-bottom: 3px; background: #4FA34F; pointer-events: none; }
+.scene .uf i + i { background: #3D5FA8; width: 70%; }
+.scene .uf.p { left: 8px; top: 8px; }
+.scene .uf.t { left: 108px; top: 8px; display: none; }
+.scene .uf.t.show { display: block; }
+.scene .uf.t i { background: var(--hostile); width: 60%; }
+.scene .uf.t.friendly i { background: #4FA34F; width: 90%; }
+.scene .uf.t i + i { display: none; }
+.scene .uf.t b { position: absolute; left: 5px; bottom: 1px; font: 600 8px Manrope, sans-serif; color: #fff; pointer-events: none; }
+.scene .party { position: absolute; left: 8px; top: 42px; display: grid; gap: 3px; }
+.scene .party .uf { position: static; width: 70px; height: 18px; padding: 3px 4px; }
+.scene .party .uf i { height: 4px; margin-bottom: 2px; }
+.scene .party .uf i + i { display: none; }
+.scene .party .uf b { display: block; font: 600 7px/1 Manrope, sans-serif; color: #fff; pointer-events: none; }
+.scene .mini { position: absolute; top: 8px; right: 8px; width: 58px; height: 58px; border-radius: 50%; background: #4D6650; border: 2px solid #8A7650; }
+.scene .hint { position: absolute; left: 50%; top: 40%; transform: translateX(-50%); font-size: 10px; color: rgba(255,255,255,.75); background: rgba(0,0,0,.45); padding: 2px 8px; border-radius: 999px; white-space: nowrap; pointer-events: none; }
+
+.chat { position: absolute; z-index: 2; left: 6px; bottom: 6px; width: 48%; font-size: 10px; line-height: 1.35; color: #fff; text-shadow: 0 1px 1px #000, 0 0 2px #000; pointer-events: none; }
+.chat .log div { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chat .say { color: #fff; } .chat .party { color: #AAAAFF; } .chat .guild { color: #40FF40; } .chat .whisper { color: #FF80FF; } .chat .emote { color: #FF8040; } .chat .sys { color: #FFFF00; }
+.chat .input { display: none; margin-top: 3px; background: rgba(0,0,0,.65); border: 1px solid #8A7650; border-radius: 3px; padding: 2px 5px; white-space: pre; overflow: hidden; }
+.chat.typing .input { display: block; }
+.chat .caret { display: inline-block; width: 1px; height: 1.1em; background: #fff; vertical-align: -2px; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* Targeting feedback on the game view */
+.tchip { position: absolute; z-index: 3; top: 8px; left: 50%; transform: translateX(-50%); font: 600 10px Manrope, sans-serif; color: var(--bone);
+  background: rgba(16,23,26,.8); border: 1px solid var(--rule); border-radius: 999px; padding: 2px 10px; pointer-events: none; white-space: nowrap; }
+.tchip.hostile { border-color: var(--hostile); }
+.tchip.friendly { border-color: var(--friendly); }
+.reticle { position: absolute; z-index: 3; width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%; border: 2px solid var(--hostile);
+  display: none; pointer-events: none; }
+.reticle::after { content: ""; position: absolute; left: 50%; top: 50%; width: 4px; height: 4px; margin: -2px 0 0 -2px; border-radius: 50%; background: currentColor; }
+.reticle.hostile { display: block; border-color: var(--hostile); color: var(--hostile); }
+.reticle.friendly { display: block; border-color: var(--friendly); color: var(--friendly); }
+.ripple { position: absolute; z-index: 3; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; border: 2px solid var(--bone); pointer-events: none; animation: ripple .45s ease-out forwards; }
+@keyframes ripple { from { transform: scale(.3); opacity: 1; } to { transform: scale(1.3); opacity: 0; } }
+
+.fold { position: absolute; z-index: 5; top: 0; bottom: 0; left: 50%; pointer-events: none; border-left: 1px dashed rgba(239,230,214,.35); }
+.fold span { position: absolute; top: 4px; left: 4px; font-size: 9px; color: rgba(239,230,214,.6); background: rgba(0,0,0,.55); padding: 0 5px; border-radius: 999px; }
+
+/* Bar between game and controls: drag to resize, tabs switch the pane. */
+.handle { flex: none; height: 22px; background: var(--stone); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); display: flex; align-items: center; justify-content: center; gap: 14px; cursor: ns-resize; touch-action: none; }
+.handle .grip { width: 70px; height: 4px; border-radius: 2px; background: var(--rule); }
+.tabs { display: inline-flex; border: 1px solid var(--rule); border-radius: 999px; overflow: hidden; }
+.tabs button { font: 600 10px Manrope, sans-serif; color: var(--ash); background: transparent; border: 0; padding: 1px 10px; cursor: pointer; }
+.tabs button.on { background: var(--brass); color: var(--brass-ink); }
+
+.pane { flex: 1; min-height: 0; background: var(--ink); padding: 8px; position: relative; }
+.pane .kbd { display: none; }
+.pane.k .ctl { display: none; }
+.pane.k .kbd { display: flex; }
+
+/* Keys and buttons */
+.k { display: flex; align-items: center; justify-content: center; flex-direction: column; min-width: 0; min-height: 0;
+  background: var(--stone2); border: 1px solid var(--rule); border-radius: 8px; color: var(--bone);
+  font: 600 12px/1.1 Manrope, sans-serif; user-select: none; -webkit-user-select: none; touch-action: none; cursor: pointer; }
+.k small { font-size: 8px; font-weight: 600; color: var(--ash); margin-top: 2px; }
+.k.flash, .k.on { background: var(--brass); color: var(--brass-ink); border-color: var(--brass); }
+.k.flash small, .k.on small { color: var(--brass-ink); }
+.k.big { font-size: 13px; }
+.k.dim { background: var(--stone); color: var(--ash); }
+.k.tgt.hostile { border-color: var(--hostile); }
+.k.tgt.friendly { border-color: var(--friendly); }
+.k.tgt.held.hostile { background: var(--hostile); color: var(--ink); }
+.k.tgt.held.friendly { background: var(--friendly); color: var(--ink); }
+.k.tgt.held small { color: var(--ink); }
+.k.tgt.latched { border-width: 2px; }
+.k.tgt.latched.hostile { color: var(--hostile); }
+.k.tgt.latched.friendly { color: var(--friendly); }
+
+.stick { position: relative; aspect-ratio: 1; border-radius: 50%; background: var(--stone); border: 1px solid var(--rule); touch-action: none; cursor: grab; flex: none;
+  height: 100%; max-width: 150px; max-height: 150px; align-self: center; }
+.stick .knob { position: absolute; left: 50%; top: 50%; width: 42%; height: 42%; margin: -21% 0 0 -21%; border-radius: 50%; background: var(--stone2); border: 1px solid var(--ash); display: flex; align-items: center; justify-content: center; font: 600 9px Manrope, sans-serif; color: var(--ash); pointer-events: none; }
+.stick.active .knob { background: var(--brass); border-color: var(--brass); color: var(--brass-ink); }
+.device.mode-enemy [data-stick="cam"] { border-color: var(--hostile); }
+.device.mode-friend [data-stick="cam"] { border-color: var(--friendly); }
+
+.grid { display: grid; gap: 5px; min-height: 0; }
+.slots { grid-template-columns: repeat(6, 1fr); grid-template-rows: 1fr 1fr; }
+.modegrid { display: none; grid-template-columns: repeat(4, 1fr); }
+.device.mode-enemy .slots, .device.mode-friend .slots { display: none; }
+.device.mode-enemy .modegrid, .device.mode-friend .modegrid { display: grid; }
+.modegrid .k { font-size: 12px; }
+.util { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 5px; }
+.util .k { font-size: 10px; border-radius: 999px; }
+
+/* Controller: move stick | jump col | utility + slots | target col | look stick */
+.ctl { display: flex; gap: 8px; height: 100%; align-items: stretch; }
+.ctl .colbtn { display: flex; flex-direction: column; gap: 5px; width: 58px; flex: none; }
+.ctl .colbtn .k { flex: 1; font-size: 10px; }
+.ctl .colbtn .k.big { font-size: 12px; }
+.ctl .mid { flex: 1; display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.ctl .mid .util { height: 24px; flex: none; }
+.ctl .mid .slots, .ctl .mid .modegrid { flex: 1; }
+
+/* Keyboard: left half | chat column | right half */
+.kbd { gap: 6px; height: 100%; flex-direction: row; }
+.krows { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.krows.half { flex: 1.15; }
+.krow { flex: 1; display: flex; gap: 4px; min-height: 0; }
+.krow .k { flex: 1 1 0; font-size: 13px; border-radius: 7px; }
+.krow .k.mod { font-size: 10px; background: var(--stone); }
+.kbd .mid { flex: 1; display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.chips { flex: 1; display: flex; gap: 4px; }
+.chips .k { flex: 1 1 0; font-size: 9px; border-radius: 999px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Touch controls mockup</h1>
+  <p class="lede">Galaxy Z Fold 8 Wide inner screen (about 2448 by 1848, 4:3), drawn at roughly real size on a typical monitor. The line under the device says what each touch would send to the game.</p>
+
+  <div class="bar">
+    <label>Game version
+      <span class="seg" id="target">
+        <button type="button" class="on" data-v="forever">Forever (gamepad)</button>
+        <button type="button" data-v="legacy">3.3.5a (keys)</button>
+      </span>
+    </label>
+    <label><input type="checkbox" id="returnAfter" checked> Back to controls after sending a message</label>
+    <button type="button" class="btn" id="loadShot">Load screenshot</button>
+    <input type="file" id="shotFile" accept="image/*" hidden>
+  </div>
+
+  <div class="stage">
+    <div class="col">
+      <div class="fit"><div class="device" data-dev="land">
+        <div class="screen">
+          <div class="game"></div>
+          <div class="handle">
+            <span class="grip"></span>
+            <span class="tabs"><button type="button" class="on" data-mode="ctl">Controls</button><button type="button" data-mode="kbd">Keyboard</button></span>
+            <span class="grip"></span>
+          </div>
+          <div class="pane">
+            <div class="ctl">
+              <div class="stick" data-stick="move"><div class="knob">Move</div></div>
+              <div class="colbtn">
+                <div class="k big" data-a="jump">Jump</div>
+                <div class="k" data-a="clearTgt">Clear</div>
+                <div class="k" data-a="autorun">Auto run</div>
+              </div>
+              <div class="mid">
+                <div class="util" data-util></div>
+                <div class="grid slots" data-slots></div>
+                <div class="grid modegrid" data-modegrid></div>
+              </div>
+              <div class="colbtn">
+                <div class="k big" data-a="interact">Use</div>
+                <div class="k tgt hostile" data-tgt="enemy">Enemy<small>drag to aim</small></div>
+                <div class="k tgt friendly" data-tgt="friend">Friend<small>drag to aim</small></div>
+              </div>
+              <div class="stick" data-stick="cam"><div class="knob">Look</div></div>
+            </div>
+            <div class="kbd"></div>
+          </div>
+          <div class="fold"><span>fold</span></div>
+        </div>
+      </div></div>
+      <div class="sent" data-sent="land">Sends: <b>nothing yet</b></div>
+      <div class="readout" data-readout="land"></div>
+    </div>
+
+    <div class="side">
+      <section class="try">
+        <h2>Try the targeting</h2>
+        <ol>
+          <li><b>Tap the game</b> on the wolf, the ally or a party frame to target it, as a mouse click would.</li>
+          <li><b>Hold Enemy and drag</b> to aim the red circle, then lift to let go. One thumb does what takes RB plus the right stick on a pad.</li>
+          <li><b>Tap Enemy or Friend quickly</b> to keep the mode on. Its buttons replace the action grid and Look becomes Aim. Tap it again, or pick a target, to go back.</li>
+          <li><b>Friend mode</b> adds Party 1 to 4, one tap per party member, for healing.</li>
+        </ol>
+      </section>
+      <section>
+        <h2>Controls view</h2>
+        <ul>
+          <li>Twelve one-tap action buttons; Shift keeps a second set of twelve on until tapped again. No held layers.</li>
+          <li>Forever's own targeting modes are used as they are: Enemy holds RB, Friend holds LB, and the mode buttons are the face buttons and D-pad the game shows for them.</li>
+          <li>Jump, Clear, Use and the mode buttons go out as gamepad input; the action buttons as keys, unless keys turn the gamepad interface off.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Keyboard view</h2>
+        <ul>
+          <li>Opening it opens the chat box; Enter sends, Esc closes.</li>
+          <li>Keys split between the two thumbs, channel and emote buttons in the middle.</li>
+          <li>The pane hides when a physical controller connects.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>To check on the Fold</h2>
+        <ul>
+          <li>Tap to target with the gamepad interface on.</li>
+          <li>Whether aiming with RB held leaves a target after RB is let go.</li>
+          <li>Fixed Party Targeting's D-pad order, for the Party 1 to 4 labels.</li>
+          <li>Whether keys 1 to = switch the interface or fire the visible gamepad bar.</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</main>
+
+<script>
+(() => {
+  const REAL_W = 2448, PPI = 403;
+  const S = 636 / REAL_W;
+  const mm = px => Math.round(px / PPI * 25.4);
+  let target = "forever";
+
+  const SLOTS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "="];
+  const UTIL = [["layer", "Shift"], ["bags", "Bags"], ["map", "Map"], ["char", "Char"], ["spells", "Spells"], ["menu", "Menu"]];
+  // [Forever, 3.3.5a]. Forever's face buttons come from the Forever controller guides.
+  const MAP = {
+    jump: ["Pad A (jump)", "Space"],
+    interact: ["Pad X (interact, or attack in combat)", "Interact key (to confirm)"],
+    clearTgt: ["Pad B (drop target)", "Esc"],
+    autorun: ["Key Num Lock", "Num Lock"],
+    bags: ["Key B", "B"], map: ["Key M", "M"], char: ["Key C", "C"], spells: ["Key P", "P"],
+    menu: ["Pad Y (menu)", "Esc"],
+  };
+  // Each targeting mode: the bumper it holds, and its buttons as [id, label, pad button, 3.3.5a key, what it targets].
+  const MODES = {
+    enemy: {
+      pad: "RB", cls: "hostile", name: "Enemy",
+      acts: [
+        ["last", "Last enemy", "A", "G", "last enemy"],
+        ["ranged", "Ranged", "X", "no default key", null],
+        ["assist", "Assist", "B", "F", "your target's target"],
+        ["marker", "Marker", "Y", "no default key", null],
+      ],
+    },
+    friend: {
+      pad: "LB", cls: "friendly", name: "Friend",
+      acts: [
+        ["self", "Self", "A", "F1", "you"],
+        ["pet", "Pet", "X", "Shift+F1", "your pet"],
+        ["assist", "Assist", "B", "F", "your target's target"],
+        ["marker", "Marker", "Y", "no default key", null],
+        ["p1", "Party 1", "D-pad up", "F2", "Party 1"],
+        ["p2", "Party 2", "D-pad right", "F3", "Party 2"],
+        ["p3", "Party 3", "D-pad down", "F4", "Party 3"],
+        ["p4", "Party 4", "D-pad left", "F5", "Party 4"],
+      ],
+    },
+  };
+  const DIRS = { n: "up", ne: "up right", e: "right", se: "down right", s: "down", sw: "down left", w: "left", nw: "up left" };
+  const WASD = { n: "W", ne: "W+D", e: "D", se: "S+D", s: "S", sw: "S+A", w: "A", nw: "W+A" };
+  const EMOTES = [["wave", "waves."], ["thank", "thanks everyone."], ["cheer", "cheers!"], ["lol", "laughs."], ["bow", "bows."]];
+  const CHANNELS = [["say", "Say"], ["party", "Party"], ["guild", "Guild"], ["whisper", "Whisp."], ["reply", "Reply"]];
+  const SPLIT_L = { abc: [["q", "w", "e", "r", "t"], ["a", "s", "d", "f", "g"], ["Shift", "z", "x", "c", "v", "b"]],
+                    sym: [["1", "2", "3", "4", "5"], ["-", "/", ":", ";", "("], ["Shift", "@", "#", "&", "*", "_"]] };
+  const SPLIT_R = { abc: [["y", "u", "i", "o", "p"], ["h", "j", "k", "l", "Back"], ["n", "m", ".", "123", "Enter"]],
+                    sym: [["6", "7", "8", "9", "0"], [")", "!", "?", "'", "Back"], [",", "\"", ".", "abc", "Enter"]] };
+  const WIDE = { Shift: 1.5, Back: 1.5, Enter: 1.6, Esc: 1.2, "123": 1.2, abc: 1.2 };
+  const MODS = new Set(["Shift", "Back", "Enter", "Esc", "123", "abc"]);
+  const PREFIX = { say: "Say: ", party: "Party: ", guild: "Guild: ", whisper: "Tell Jaina: ", reply: "Tell Thrall: " };
+
+  const forever = () => target === "forever";
+  const pick = pair => pair[forever() ? 0 : 1];
+  const cap = s => s[0].toUpperCase() + s.slice(1);
+  const dir8 = (dx, dy) => ["n", "ne", "e", "se", "s", "sw", "w", "nw"][Math.round(((Math.atan2(dy, dx) * 180 / Math.PI + 450) % 360) / 45) % 8];
+
+  const el = document.querySelector(".device");
+  const d = {
+    el, fit: el.parentElement,
+    screen: el.querySelector(".screen"),
+    game: el.querySelector(".game"),
+    pane: el.querySelector(".pane"),
+    sent: document.querySelector('[data-sent="land"]'),
+    readout: document.querySelector('[data-readout="land"]'),
+    scale: 1, layer: false,
+    chat: { text: "", channel: "say", shift: false, sym: false },
+    tgt: { mode: null, latched: false, pointer: null },
+  };
+
+  // ---------- sending ----------
+  function send(text) {
+    d.sent.innerHTML = "Sends: <b></b>";
+    d.sent.querySelector("b").textContent = text;
+  }
+
+  function press(k, fn) {
+    k.addEventListener("pointerdown", e => {
+      e.preventDefault();
+      e.stopPropagation();
+      k.classList.add("flash");
+      const off = () => k.classList.remove("flash");
+      k.addEventListener("pointerup", off, { once: true });
+      k.addEventListener("pointercancel", off, { once: true });
+      k.addEventListener("pointerleave", off, { once: true });
+      fn();
+    });
+  }
+
+  // ---------- game view ----------
+  d.game.innerHTML = `
+    <div class="scene"><div class="sun"></div><div class="hill h1"></div><div class="hill h2"></div><div class="ground"></div>
+      <div class="fig hero"></div>
+      <div class="fig foe" data-unit="Hostile wolf" data-kind="hostile"></div>
+      <div class="fig ally" data-unit="Jaina" data-kind="friendly"></div>
+      <div class="uf p" data-unit="you" data-kind="friendly"><i></i><i></i></div>
+      <div class="uf t"><i></i><i></i><b></b></div>
+      <div class="party">
+        ${[1, 2, 3, 4].map(n => `<div class="uf" data-unit="Party ${n}" data-kind="friendly"><i></i><b>Party ${n}</b></div>`).join("")}
+      </div>
+      <div class="mini"></div>
+      <div class="hint">Stand-in scene: add wow-screenshot.jpg next to this file</div></div>
+    <div class="tchip">No target</div>
+    <div class="reticle"></div>
+    <div class="chat"><div class="log"></div><div class="input"></div></div>`;
+  const chatEl = d.game.querySelector(".chat");
+  const logEl = d.game.querySelector(".log");
+  const inputEl = d.game.querySelector(".input");
+  const tchip = d.game.querySelector(".tchip");
+  const reticle = d.game.querySelector(".reticle");
+  const tframe = d.game.querySelector(".uf.t");
+
+  function addChat(cls, text) {
+    const line = document.createElement("div");
+    line.className = cls;
+    line.textContent = text;
+    logEl.appendChild(line);
+    while (logEl.children.length > 6) logEl.firstChild.remove();
+  }
+  addChat("sys", "Welcome to World of Warcraft.");
+  addChat("guild", "[Guild] [Thrall]: anyone up for a dungeon?");
+  addChat("party", "[Party] [Jaina]: ready when you are");
+
+  function setTarget(name, kind) {
+    tchip.className = "tchip" + (kind ? " " + kind : "");
+    tchip.textContent = name ? `Target: ${name}` : "No target";
+    tframe.classList.toggle("show", !!name);
+    tframe.classList.toggle("friendly", kind === "friendly");
+    tframe.querySelector("b").textContent = name || "";
+  }
+
+  // Tap on the game: a mouse click where the finger is (upstream's Touchscreen mode).
+  d.game.addEventListener("pointerdown", e => {
+    const r = d.game.getBoundingClientRect();
+    const x = (e.clientX - r.left) / d.scale, y = (e.clientY - r.top) / d.scale;
+    const ripple = document.createElement("div");
+    ripple.className = "ripple";
+    ripple.style.left = x + "px";
+    ripple.style.top = y + "px";
+    d.game.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 500);
+    const unit = e.target.closest("[data-unit]");
+    if (unit) setTarget(unit.dataset.unit, unit.dataset.kind);
+    else if (d.game.querySelector("img.shot")) setTarget("whatever was under the tap", null);
+    send("Left click at the tap (targets what is under it)");
+  });
+
+  function setShot(url) {
+    let img = d.game.querySelector("img.shot");
+    if (!img) {
+      img = document.createElement("img");
+      img.className = "shot";
+      img.alt = "";
+      d.game.prepend(img);
+    }
+    img.src = url;
+  }
+  (function tryDefaultShot(names) {
+    if (!names.length) return;
+    const probe = new Image();
+    probe.onload = () => setShot(probe.src);
+    probe.onerror = () => tryDefaultShot(names.slice(1));
+    probe.src = names[0];
+  })(["wow-screenshot.jpg", "wow-screenshot.png", "wow-screenshot.webp"]);
+  const fileInput = document.getElementById("shotFile");
+  document.getElementById("loadShot").addEventListener("click", () => fileInput.click());
+  fileInput.addEventListener("change", () => {
+    if (fileInput.files[0]) setShot(URL.createObjectURL(fileInput.files[0]));
+  });
+
+  // ---------- reticle ----------
+  function aimAt(ax, ay) {
+    const w = d.game.offsetWidth, h = d.game.offsetHeight;
+    reticle.style.left = (0.5 + ax * 0.42) * w + "px";
+    reticle.style.top = (0.74 + ay * 0.3) * h + "px";
+  }
+  function unitUnderReticle() {
+    const r = reticle.getBoundingClientRect();
+    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    const want = MODES[d.tgt.mode].cls;
+    for (const u of d.game.querySelectorAll(".fig[data-unit]")) {
+      const b = u.getBoundingClientRect();
+      if (u.dataset.kind === want && Math.hypot(cx - (b.left + b.width / 2), cy - (b.top + b.height / 2)) < 30 * d.scale) return u;
+    }
+    return null;
+  }
+
+  // ---------- targeting modes ----------
+  const modeGrid = el.querySelector("[data-modegrid]");
+  const lookKnob = el.querySelector('[data-stick="cam"] .knob');
+
+  function enterMode(mode, latched) {
+    const m = MODES[mode];
+    d.tgt.mode = mode;
+    d.tgt.latched = latched;
+    el.classList.remove("mode-enemy", "mode-friend");
+    el.classList.add("mode-" + mode);
+    el.querySelectorAll("[data-tgt]").forEach(b => {
+      const on = b.dataset.tgt === mode;
+      b.classList.toggle("held", on && !latched);
+      b.classList.toggle("latched", on && latched);
+      b.querySelector("small").textContent = on && latched ? "tap to leave" : "drag to aim";
+    });
+    reticle.className = "reticle " + m.cls;
+    aimAt(0, 0);
+    lookKnob.textContent = "Aim";
+    modeGrid.style.gridTemplateRows = `repeat(${m.acts.length / 4}, 1fr)`;
+    modeGrid.innerHTML = "";
+    m.acts.forEach(([id, label, padBtn, key, picks]) => {
+      const k = document.createElement("div");
+      k.className = "k big";
+      k.innerHTML = `${label}<small>${forever() ? padBtn : key}</small>`;
+      press(k, () => {
+        send(forever() ? `Hold ${m.pad} + ${padBtn} (${label.toLowerCase()})` : `Key ${key} (${label.toLowerCase()})`);
+        if (picks) {
+          setTarget(picks, mode === "enemy" && id !== "assist" ? "hostile" : mode === "friend" && id !== "assist" ? "friendly" : null);
+          leaveMode();
+        }
+      });
+      modeGrid.appendChild(k);
+    });
+  }
+
+  function leaveMode() {
+    d.tgt.mode = null;
+    d.tgt.latched = false;
+    d.tgt.pointer = null;
+    el.classList.remove("mode-enemy", "mode-friend");
+    el.querySelectorAll("[data-tgt]").forEach(b => {
+      b.classList.remove("held", "latched");
+      b.querySelector("small").textContent = "drag to aim";
+    });
+    reticle.className = "reticle";
+    lookKnob.textContent = "Look";
+  }
+
+  el.querySelectorAll("[data-tgt]").forEach(btn => {
+    const mode = btn.dataset.tgt, m = MODES[mode];
+    let sx = 0, sy = 0, t0 = 0, dragged = false, dir = null;
+    btn.addEventListener("pointerdown", e => {
+      e.preventDefault();
+      if (d.tgt.mode === mode && d.tgt.latched) {
+        leaveMode();
+        send(forever() ? `Let go of ${m.pad}` : "nothing (mode off)");
+        return;
+      }
+      if (d.tgt.mode) leaveMode();
+      enterMode(mode, false);
+      d.tgt.pointer = e.pointerId;
+      btn.setPointerCapture(e.pointerId);
+      sx = e.clientX; sy = e.clientY; t0 = Date.now(); dragged = false; dir = null;
+      send(forever() ? `Hold ${m.pad} (${m.name.toLowerCase()} targeting)` : (mode === "enemy" ? "Key Tab (nearest enemy)" : "nothing until a button is picked"));
+    });
+    btn.addEventListener("pointermove", e => {
+      if (e.pointerId !== d.tgt.pointer || d.tgt.mode !== mode) return;
+      const dx = e.clientX - sx, dy = e.clientY - sy, len = Math.hypot(dx, dy);
+      if (len > 8) dragged = true;
+      if (!dragged) return;
+      const reach = 70 * d.scale, f = Math.min(1, len / reach);
+      aimAt(dx / len * f, dy / len * f);
+      const nd = dir8(dx, dy);
+      if (nd !== dir) {
+        dir = nd;
+        send(forever() ? `Hold ${m.pad} + right stick ${DIRS[dir]} (aiming)` : "Key Tab (3.3.5a has no aiming, cycles instead)");
+      }
+    });
+    const up = e => {
+      if (e.pointerId !== d.tgt.pointer || d.tgt.mode !== mode) return;
+      d.tgt.pointer = null;
+      if (!dragged && Date.now() - t0 < 300) {
+        enterMode(mode, true);
+        send(forever() ? `Keep holding ${m.pad} (mode stays on, tap again to leave)` : "nothing (mode stays on)");
+        return;
+      }
+      if (dragged) {
+        const u = unitUnderReticle();
+        setTarget(u ? u.dataset.unit : `${m.cls} unit at the circle`, m.cls);
+        send(forever() ? `Let go of ${m.pad} and the right stick (target where it aimed)` : "nothing more");
+      } else {
+        send(forever() ? `Let go of ${m.pad}` : "nothing more");
+      }
+      leaveMode();
+    };
+    btn.addEventListener("pointerup", up);
+    btn.addEventListener("pointercancel", up);
+  });
+
+  // ---------- controls view ----------
+  const util = el.querySelector("[data-util]");
+  UTIL.forEach(([a, label]) => {
+    const k = document.createElement("div");
+    k.className = "k" + (a === "layer" ? " dim" : "");
+    k.dataset.a = a;
+    k.textContent = label;
+    util.appendChild(k);
+  });
+
+  const slots = el.querySelector("[data-slots]");
+  SLOTS.forEach(s => {
+    const k = document.createElement("div");
+    k.className = "k big";
+    k.dataset.slot = s;
+    slots.appendChild(k);
+    press(k, () => send(`Key ${d.layer ? "Shift+" : ""}${s}`));
+  });
+  const renderSlots = () => slots.querySelectorAll("[data-slot]").forEach(k => {
+    k.innerHTML = `${d.layer ? "S" : ""}${k.dataset.slot}<small>bar ${d.layer ? 2 : 1}</small>`;
+  });
+  renderSlots();
+
+  el.querySelectorAll(".ctl [data-a]").forEach(k => {
+    const a = k.dataset.a;
+    if (a === "layer") {
+      k.addEventListener("pointerdown", e => {
+        e.preventDefault();
+        d.layer = !d.layer;
+        k.classList.toggle("on", d.layer);
+        renderSlots();
+        send(d.layer ? "nothing (Shift set kept on)" : "nothing (Shift set off)");
+      });
+      return;
+    }
+    press(k, () => {
+      send(pick(MAP[a]));
+      if (a === "clearTgt") { setTarget(null); if (d.tgt.mode) leaveMode(); }
+    });
+  });
+
+  el.querySelectorAll("[data-stick]").forEach(st => {
+    const knob = st.querySelector(".knob"), kind = st.dataset.stick;
+    let dir = null, id = null;
+    const describe = dr => {
+      const aiming = kind === "cam" && d.tgt.mode;
+      if (aiming) {
+        const m = MODES[d.tgt.mode];
+        if (!forever()) return "Key Tab (3.3.5a has no aiming)";
+        return dr ? `Hold ${m.pad} + right stick ${DIRS[dr]} (aiming)` : `Right stick centred, still holding ${m.pad}`;
+      }
+      if (!dr) return kind === "move" ? "stop moving" : "stop turning";
+      if (kind === "move") return forever() ? `Left stick ${DIRS[dr]}` : `Keys ${WASD[dr]}`;
+      return forever() ? `Right stick ${DIRS[dr]} (camera)` : `Mouse look (right drag) ${DIRS[dr]}`;
+    };
+    const move = e => {
+      const r = st.getBoundingClientRect();
+      let dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
+      const max = r.width * 0.32, len = Math.hypot(dx, dy);
+      if (len > max) { dx *= max / len; dy *= max / len; }
+      knob.style.transform = `translate(${dx / d.scale}px, ${dy / d.scale}px)`;
+      if (kind === "cam" && d.tgt.mode) aimAt(dx / max, dy / max);
+      const nd = len > r.width * 0.1 ? dir8(dx, dy) : null;
+      if (nd !== dir) { dir = nd; send(describe(dir)); }
+    };
+    st.addEventListener("pointerdown", e => {
+      e.preventDefault();
+      id = e.pointerId;
+      st.setPointerCapture(id);
+      st.classList.add("active");
+      move(e);
+    });
+    st.addEventListener("pointermove", e => { if (e.pointerId === id) move(e); });
+    const end = e => {
+      if (e.pointerId !== id) return;
+      id = null;
+      st.classList.remove("active");
+      knob.style.transform = "";
+      if (kind === "cam" && d.tgt.mode) {
+        const u = unitUnderReticle();
+        if (u) setTarget(u.dataset.unit, u.dataset.kind);
+      }
+      if (dir) { dir = null; send(describe(null)); }
+    };
+    st.addEventListener("pointerup", end);
+    st.addEventListener("pointercancel", end);
+  });
+
+  // ---------- keyboard view ----------
+  const kbd = d.pane.querySelector(".kbd");
+  const chipsHTML = (list, kind) => list.map(([v, label]) => `<div class="k" data-${kind}="${v}">${label}</div>`).join("");
+  kbd.innerHTML = `
+    <div class="krows half" data-rows="L"></div>
+    <div class="mid">
+      <div class="chips">${chipsHTML(CHANNELS, "ch")}</div>
+      <div class="chips">${chipsHTML(EMOTES.map(([e]) => [e, cap(e)]), "em")}</div>
+      <div class="chips"><div class="k mod" data-key="Esc">Esc</div><div class="k" data-key="Space" style="flex:3">Space</div></div>
+    </div>
+    <div class="krows half" data-rows="R"></div>`;
+
+  function renderKeys() {
+    const c = d.chat;
+    const fill = (host, rows) => {
+      host.innerHTML = "";
+      rows.forEach(row => {
+        const r = document.createElement("div");
+        r.className = "krow";
+        row.forEach(key => {
+          const k = document.createElement("div");
+          k.className = "k" + (MODS.has(key) ? " mod" : "") + (key === "Shift" && c.shift ? " on" : "");
+          k.style.flexGrow = WIDE[key] || 1;
+          k.textContent = key.length === 1 && c.shift ? key.toUpperCase() : key;
+          k.dataset.key = key;
+          press(k, () => typeKey(key));
+          r.appendChild(k);
+        });
+        host.appendChild(r);
+      });
+    };
+    fill(kbd.querySelector('[data-rows="L"]'), SPLIT_L[c.sym ? "sym" : "abc"]);
+    fill(kbd.querySelector('[data-rows="R"]'), SPLIT_R[c.sym ? "sym" : "abc"]);
+  }
+  renderKeys();
+
+  const markChannel = () => kbd.querySelectorAll("[data-ch]").forEach(k => k.classList.toggle("on", k.dataset.ch === d.chat.channel));
+  kbd.querySelectorAll("[data-ch]").forEach(k => press(k, () => {
+    d.chat.channel = k.dataset.ch;
+    markChannel();
+    renderInput();
+    send(`Keys "${{ say: "/s ", party: "/p ", guild: "/g ", whisper: "/w Jaina ", reply: "/r " }[k.dataset.ch]}" (channel)`);
+  }));
+  kbd.querySelectorAll("[data-em]").forEach(k => press(k, () => {
+    const em = k.dataset.em;
+    addChat("emote", `You ${EMOTES.find(e => e[0] === em)[1]}`);
+    send(`Keys "/${em}" + Enter`);
+  }));
+  kbd.querySelectorAll(".mid [data-key]").forEach(k => press(k, () => typeKey(k.dataset.key)));
+  markChannel();
+
+  function renderInput() {
+    inputEl.textContent = PREFIX[d.chat.channel] + d.chat.text;
+    const caret = document.createElement("span");
+    caret.className = "caret";
+    inputEl.appendChild(caret);
+  }
+
+  function typeKey(key) {
+    const c = d.chat;
+    switch (key) {
+      case "Shift": c.shift = !c.shift; renderKeys(); send(c.shift ? "Shift (next letter)" : "nothing (Shift off)"); return;
+      case "123": case "abc": c.sym = !c.sym; renderKeys(); send("nothing (switched key set)"); return;
+      case "Back": c.text = c.text.slice(0, -1); renderInput(); send("Key Backspace"); return;
+      case "Esc": setMode("ctl", "Key Esc (close chat)"); return;
+      case "Enter": sendMessage(); return;
+      case "Space": c.text += " "; renderInput(); send("Key Space"); return;
+    }
+    const ch = c.shift ? key.toUpperCase() : key;
+    c.text += ch;
+    if (c.shift) { c.shift = false; renderKeys(); }
+    renderInput();
+    send(`Key ${ch}`);
+  }
+
+  function sendMessage() {
+    const c = d.chat, msg = c.text.trim();
+    if (msg) {
+      const [cls, line] = {
+        say: ["say", `[You] says: ${msg}`],
+        party: ["party", `[Party] [You]: ${msg}`],
+        guild: ["guild", `[Guild] [You]: ${msg}`],
+        whisper: ["whisper", `To [Jaina]: ${msg}`],
+        reply: ["whisper", `To [Thrall]: ${msg}`],
+      }[c.channel];
+      addChat(cls, line);
+    }
+    c.text = "";
+    if (document.getElementById("returnAfter").checked) {
+      setMode("ctl", "Key Enter (send, chat closes)");
+    } else {
+      renderInput();
+      send("Key Enter (send), then Enter (reopen chat)");
+    }
+  }
+
+  // ---------- mode switch ----------
+  function setMode(mode, why) {
+    const toKbd = mode === "kbd";
+    if (toKbd === d.pane.classList.contains("k") && !why) return;
+    if (toKbd && d.tgt.mode) leaveMode();
+    d.pane.classList.toggle("k", toKbd);
+    el.querySelectorAll(".tabs button").forEach(b => b.classList.toggle("on", b.dataset.mode === mode));
+    chatEl.classList.toggle("typing", toKbd);
+    if (toKbd) {
+      renderInput();
+      send("Key Enter (open chat)");
+    } else {
+      d.chat.text = "";
+      send(why || "Key Esc (close chat)");
+    }
+  }
+  el.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => setMode(b.dataset.mode)));
+
+  // ---------- resize handle ----------
+  const MIN_GH = Math.round(636 / (21 / 9)), MAX_GH = Math.round(636 / (16 / 9));
+  const handle = el.querySelector(".handle");
+  let dragId = null;
+  handle.addEventListener("pointerdown", e => {
+    if (e.target.closest("button")) return;
+    dragId = e.pointerId;
+    handle.setPointerCapture(dragId);
+  });
+  handle.addEventListener("pointermove", e => {
+    if (e.pointerId !== dragId) return;
+    const top = d.screen.getBoundingClientRect().top;
+    const gh = Math.max(MIN_GH, Math.min(MAX_GH, (e.clientY - top) / d.scale - 11));
+    d.screen.style.setProperty("--gh", Math.round(gh) + "px");
+    updateReadout();
+  });
+  const endDrag = e => { if (e.pointerId === dragId) dragId = null; };
+  handle.addEventListener("pointerup", endDrag);
+  handle.addEventListener("pointercancel", endDrag);
+
+  function updateReadout() {
+    const gh = parseFloat(getComputedStyle(d.screen).getPropertyValue("--gh")) || 318;
+    const realGame = Math.round(gh / S), realCtl = Math.round((480 - gh - 22) / S);
+    d.readout.innerHTML = `Game <b>${REAL_W}×${realGame}</b> (${(REAL_W / realGame).toFixed(2)}:1) · controls <b>${realCtl} px, ${mm(realCtl)} mm</b> tall · drag the bar from 16:9 to 21:9`;
+  }
+
+  // ---------- game version ----------
+  document.querySelectorAll("#target button").forEach(b => b.addEventListener("click", () => {
+    target = b.dataset.v;
+    document.querySelectorAll("#target button").forEach(x => x.classList.toggle("on", x === b));
+    if (d.tgt.mode) leaveMode();
+    send("nothing yet");
+  }));
+
+  // ---------- fit the device to its column ----------
+  function fit() {
+    d.scale = Math.min(1, d.fit.clientWidth / el.offsetWidth);
+    el.style.transform = `scale(${d.scale})`;
+    d.fit.style.height = el.offsetHeight * d.scale + "px";
+  }
+  new ResizeObserver(fit).observe(document.querySelector(".stage"));
+  fit();
+  updateReadout();
+})();
+</script>
+</body>
+</html>
