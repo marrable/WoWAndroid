@@ -10,6 +10,8 @@ Tap to target is the touchpad's Touchscreen mode, switched on at the touchpad by
 
 The Keyboard tab presses nothing when it opens. Opening chat with Enter was the mockup's plan, but on the login screen Enter logs in, and the app can't tell which screen the game is on. Channel buttons type `/s `, `/p ` and so on, which opens WoW's chat box on that channel, and the keyboard has its own Enter. Keys are US layout only. The game's render size is set at launch, so dragging the bar mid-game letterboxes until the next start.
 
+The keyboard's Paste key types the clipboard into the game, for long passwords on the login screen. It types all of it or nothing (a character outside the US layout would leave a password half-typed), drops trailing line breaks so it never presses Enter, and stops at 256 characters. Trade-off: a password copied to the clipboard is readable by other apps until it's replaced; when the copying app marks the clip sensitive (password managers do, Android 13 and later) the pane clears the clipboard once it has typed it. Ordinary text stays so it can be pasted again.
+
 Local builds need `tools/fetch_components.sh` first (Proton, DXVK and the Turnip drivers, verified against `tools/components.sha256`); CI runs it, and without it Play fails with "Failed to extract Proton or graphics components."
 
 ## 2026-10-30: Touch controls in a pane below the game, in landscape

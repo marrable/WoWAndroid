@@ -15,6 +15,9 @@ internal class ChatKeyboard(private val sink: Sink) {
 
         /** Types a whole string, key by key. */
         fun type(text: String)
+
+        /** Types what's on the clipboard; see [ChatKeyboard.pasteText]. */
+        fun paste()
         fun haptic()
         fun redraw()
     }
@@ -31,7 +34,7 @@ internal class ChatKeyboard(private val sink: Sink) {
     private val middle = listOf(
         CHANNELS.map { (id, label, _) -> Key(id, label, quiet = true) },
         EMOTES.map { (id, label) -> Key(id, label, quiet = true) },
-        listOf(Key("Esc", "Esc", quiet = true), Key("Space", "Space", wide = 3f)),
+        listOf(Key("Esc", "Esc", quiet = true), Key("Paste", "Paste", quiet = true), Key("Space", "Space", wide = 2f)),
     )
 
     var symbols = false
@@ -63,6 +66,7 @@ internal class ChatKeyboard(private val sink: Sink) {
         when (key.id) {
             "Shift" -> { shift = !shift; relabel() }
             "123", "abc" -> { symbols = !symbols; shift = false; relabel() }
+            "Paste" -> sink.paste()
             else -> {
                 CHANNELS.firstOrNull { it.first == key.id }?.let { sink.type(it.third); return sink.redraw() }
                 EMOTES.firstOrNull { it.first == key.id }?.let { sink.type("/${it.first}\n"); return sink.redraw() }
@@ -126,6 +130,20 @@ internal class ChatKeyboard(private val sink: Sink) {
             "Esc" -> XKeycode.KEY_ESC to false
             "Space" -> XKeycode.KEY_SPACE to false
             else -> id.singleOrNull()?.let(::codeFor)
+        }
+
+        /** Longest paste typed, so a stray copied page can't flood the game with keys. */
+        const val MAX_PASTE = 256
+
+        /**
+         * The clipboard text to type, or null when it can't be typed whole: empty, too long, or with a character
+         * the US layout has no key for. A password typed with a character missing would just fail, so nothing is
+         * typed then. Trailing line breaks are dropped so a paste never presses Enter by itself.
+         */
+        fun pasteText(clip: CharSequence?): String? {
+            val text = clip?.toString()?.trimEnd('\r', '\n') ?: return null
+            if (text.isEmpty() || text.length > MAX_PASTE) return null
+            return text.takeIf { t -> t.all { codeFor(it) != null } }
         }
 
         fun codeFor(c: Char): Pair<XKeycode, Boolean>? {

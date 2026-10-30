@@ -23,6 +23,7 @@ class ChatKeyboardTest {
             }
 
             override fun type(text: String) { sent += "type[$text]" }
+            override fun paste() { sent += "paste" }
             override fun haptic() = Unit
             override fun redraw() = Unit
         })
@@ -92,5 +93,21 @@ class ChatKeyboardTest {
         tap("Enter")
         tap("Esc")
         assertEquals(listOf("KEY_ENTER down", "KEY_ENTER up", "KEY_ESC down", "KEY_ESC up"), sent)
+    }
+
+    @Test
+    fun pasteKeyAsksForTheClipboard() {
+        tap("Paste")
+        assertEquals(listOf("paste"), sent)
+    }
+
+    @Test
+    fun pasteTypesTheWholeTextOrNothing() {
+        assertEquals("P@ss w0rd!{}", ChatKeyboard.pasteText("P@ss w0rd!{}"))
+        assertEquals("a trailing line break never presses Enter", "secret", ChatKeyboard.pasteText("secret\r\n"))
+        assertNull("a character with no key means nothing is typed", ChatKeyboard.pasteText("café"))
+        assertNull(ChatKeyboard.pasteText(""))
+        assertNull(ChatKeyboard.pasteText(null))
+        assertNull(ChatKeyboard.pasteText("x".repeat(ChatKeyboard.MAX_PASTE + 1)))
     }
 }

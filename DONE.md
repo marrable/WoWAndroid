@@ -18,7 +18,7 @@ What the app does, by area, with the version each feature came in. Versions up t
 - Draggable bar between game and pane, 16:9 to 21:9, remembered; the game renders at that shape (unreleased)
 - Move and look sticks, Jump, Clear, Auto run, Use, a utility row, twelve action keys with a Shift set (unreleased)
 - Enemy and Friend: hold and drag to aim with Forever's own targeting modes, quick tap to keep a mode on with its buttons (Last enemy, Assist, Self, Pet, Party 1 to 4); tap on the game to target (unreleased)
-- Chat keyboard tab: split keys, 123 set, channel and emote buttons (unreleased)
+- Chat keyboard tab: split keys, 123 set, channel and emote buttons, Paste from the clipboard (unreleased)
 
 ## Installing and updating the game
 

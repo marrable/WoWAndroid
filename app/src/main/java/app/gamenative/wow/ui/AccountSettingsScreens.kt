@@ -116,12 +116,12 @@ private fun AppPane(launcher: LauncherController, setHint: (String) -> Unit) {
             )
         }
     }
-    TouchPaneSetting(setHint)
+    TouchPaneSetting(launcher, setHint)
 }
 
 /** Settings, App: the touch controls pane below the game, for WoW Forever in landscape. */
 @Composable
-private fun TouchPaneSetting(setHint: (String) -> Unit) {
+private fun TouchPaneSetting(launcher: LauncherController, setHint: (String) -> Unit) {
     val context = LocalContext.current
     var on by remember { mutableStateOf(TouchPaneSettings.isEnabled(context)) }
     val hint = "WoW Forever in landscape: the game on top and touch controls below it. They hide while a controller is connected. Takes effect at the next Play."
@@ -134,6 +134,29 @@ private fun TouchPaneSetting(setHint: (String) -> Unit) {
         FwChip("On", on, { set(true) }, Modifier.hint(hint, setHint))
         FwChip("Off", !on, { set(false) }, Modifier.hint(hint, setHint))
     }
+    if (!on) return
+    var height by remember { mutableStateOf(TouchPaneSettings.renderHeight(context)) }
+    Text("Game resolution", style = Fw.Text)
+    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+        TouchPaneSettings.HEIGHTS.forEach { h ->
+            val size = TouchPaneSettings.sizeFor(context, launcher.gpu.screenSize, h)
+            val name = when (h) {
+                TouchPaneSettings.AUTO -> "Auto"
+                TouchPaneSettings.NATIVE -> "Native"
+                else -> "${h}p"
+            }
+            val why = when (h) {
+                TouchPaneSettings.AUTO -> "Your GPU's usual pixel count, shaped to the game's part of the screen."
+                TouchPaneSettings.NATIVE -> "One game pixel per screen pixel. Sharpest, and the heaviest on the GPU."
+                else -> "Sharper than Auto, and heavier on the GPU."
+            }
+            FwChip(name, height == h, {
+                TouchPaneSettings.setRenderHeight(context, h)
+                height = h
+            }, Modifier.hint("$size. $why Takes effect at the next Play.", setHint))
+        }
+    }
+    Text("${TouchPaneSettings.sizeFor(context, launcher.gpu.screenSize, height)} at the next Play", style = Fw.Data)
 }
 
 /** Settings, Battle.net login: one saved login for every Blizzard profile. */

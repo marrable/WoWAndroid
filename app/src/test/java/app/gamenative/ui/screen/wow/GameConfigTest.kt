@@ -21,6 +21,19 @@ class GameConfigTest {
     }
 
     @Test
+    fun exactResolutionReplacesASmallerSizeThatStillFits() {
+        val existing = listOf(
+            "SET gxApi \"D3D11\"", "SET portal \"US\"", "SET agentUID \"wowf\"",
+            "SET gxFullscreenResolution \"1340x688\"", "SET gxWindowedResolution \"1340x688\"",
+        )
+        assertNull("a size that fits is kept by default", buildConfigWtf(existing, WowProduct.FOREVER, "1404x720"))
+        val lines = buildConfigWtf(existing, WowProduct.FOREVER, "1404x720", exactResolution = true)!!
+        assertTrue("SET gxFullscreenResolution \"1404x720\"" in lines)
+        assertTrue("SET gxWindowedResolution \"1404x720\"" in lines)
+        assertNull("nothing to do once it matches", buildConfigWtf(lines, WowProduct.FOREVER, "1404x720", exactResolution = true))
+    }
+
+    @Test
     fun classicVersionsKeepTheHandheldPreset() {
         val keys = buildConfigWtf(null, WowProduct.CLASSIC_ERA, "1920x1080")!!.map { it.split(" ")[1] }
         assertTrue("farclip" in keys && "graphicsQuality" in keys)

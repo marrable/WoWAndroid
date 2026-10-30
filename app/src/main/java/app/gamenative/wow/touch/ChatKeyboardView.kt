@@ -2,10 +2,14 @@ package app.gamenative.wow.touch
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.ClipDescription
+import android.content.ClipboardManager
 import android.graphics.Canvas
+import android.os.Build
 import android.view.HapticFeedbackConstants
 import android.view.MotionEvent
 import android.view.View
+import app.gamenative.ui.util.SnackbarManager
 import com.winlator.xserver.XKeycode
 
 /** Draws [ChatKeyboard] and feeds it touches, one finger per key, so fast two-thumb typing works. */
@@ -20,6 +24,7 @@ class ChatKeyboardView(context: Context) : View(context) {
         }
 
         override fun type(text: String) { output?.type(text) }
+        override fun paste() = pasteClipboard()
         override fun haptic() { performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY) }
         override fun redraw() = invalidate()
     })
@@ -55,6 +60,30 @@ class ChatKeyboardView(context: Context) : View(context) {
 
     fun release() {
         keyboard.cancelAll()
+    }
+
+    /**
+     * Types the clipboard into the game, for long passwords and copied text. A clip a password manager marked
+     * sensitive is cleared once typed, so the password doesn't stay on the clipboard for other apps.
+     */
+    private fun pasteClipboard() {
+        val clipboard = context.getSystemService(ClipboardManager::class.java) ?: return
+        val clip = clipboard.primaryClip
+        val raw = clip?.takeIf { it.itemCount > 0 }?.getItemAt(0)?.coerceToText(context)
+        val text = ChatKeyboard.pasteText(raw)
+        if (text == null) {
+            val why = when {
+                raw.isNullOrEmpty() -> "Nothing to paste"
+                raw.length > ChatKeyboard.MAX_PASTE -> "Too long to paste"
+                else -> "Can't paste: it has a character the game keyboard can't type"
+            }
+            SnackbarManager.show(why)
+            return
+        }
+        output?.type(text)
+        val sensitive = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            clip?.description?.extras?.getBoolean(ClipDescription.EXTRA_IS_SENSITIVE) == true
+        if (sensitive && Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) clipboard.clearPrimaryClip()
     }
 
     override fun onWindowFocusChanged(hasWindowFocus: Boolean) {

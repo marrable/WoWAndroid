@@ -147,6 +147,13 @@ class TouchControlsTest {
     }
 
     @Test
+    fun fixedRenderHeightsFollowTheGamesShape() {
+        assertEquals("1440x720", TouchPaneSettings.renderSize("1280x720", 2448, 2f, 720))
+        assertEquals("2448x1224", TouchPaneSettings.renderSize("1280x720", 2448, 2f, TouchPaneSettings.NATIVE))
+        assertEquals("taller than the screen is capped at native", "2448x1224", TouchPaneSettings.renderSize("1280x720", 2448, 2f, 2000))
+    }
+
+    @Test
     fun renderSizeKeepsThePixelBudgetAtTheGamesShape() {
         val (w, h) = TouchPaneSettings.renderSize("1280x720", 2448, 2f).split("x").map { it.toInt() }
         assertEquals(2f, w.toFloat() / h, 0.01f)

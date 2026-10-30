@@ -944,7 +944,7 @@ internal fun prepareLaunch(
 
     check(File(gameRoot, BUILD_INFO).exists()) { "Missing $BUILD_INFO in $gameRoot. Copy it from your WoW install." }
     try {
-        ensureGameConfig(gameRoot, product, screenSize)
+        ensureGameConfig(gameRoot, product, screenSize, exactResolution = app.gamenative.wow.touch.TouchPaneSettings.isEnabled(context))
     } catch (e: Exception) {
         if (e.isPermissionDenied()) throw StorageAccessDeniedException(e)
         throw e
@@ -1111,7 +1111,7 @@ private fun configDefaults(product: WowProduct, locale: String, portal: String) 
 
 internal fun flavorInfoText(product: WowProduct) = "Product Flavor!STRING:0\n${product.code}\n"
 
-private fun ensureGameConfig(root: File, product: WowProduct, screenSize: String) {
+private fun ensureGameConfig(root: File, product: WowProduct, screenSize: String, exactResolution: Boolean = false) {
     val flavorDir = File(root, product.flavorDir)
     flavorDir.mkdirs()
     val flavorInfo = File(flavorDir, ".flavor.info")
@@ -1125,6 +1125,7 @@ private fun ensureGameConfig(root: File, product: WowProduct, screenSize: String
         screenSize,
         installLocale(root, product),
         installPortal(root, product),
+        exactResolution,
     ) ?: return
     configWtf.parentFile?.mkdirs()
     configWtf.writeText(updated.joinToString("\n") + "\n")
@@ -1136,6 +1137,7 @@ private fun ensureGameConfig(root: File, product: WowProduct, screenSize: String
  * gxApi is always forced: DXVK only works with D3D11, and a config copied from a Mac would otherwise
  * select Metal. Resolutions are reset when missing or no longer fitting the screen (e.g. after a fold
  * or unfold): WoW's "auto" otherwise picks a 720p size because it sees a low-end Intel GPU via Wine.
+ * With [exactResolution] (the touch pane, which sizes the game to its part of the screen) any other size is reset.
  */
 internal fun buildConfigWtf(
     existing: List<String>?,
@@ -1143,6 +1145,7 @@ internal fun buildConfigWtf(
     screenSize: String,
     locale: String = "enUS",
     portal: String = product.portal,
+    exactResolution: Boolean = false,
 ): List<String>? {
     if (existing == null) {
         val defaults = configDefaults(product, locale, portal) + RESOLUTION_KEYS.associateWith { "\"$screenSize\"" }
@@ -1150,7 +1153,8 @@ internal fun buildConfigWtf(
     }
     val staleResolutionKeys = RESOLUTION_KEYS.filter { key ->
         val line = existing.firstOrNull { it.startsWith("SET $key ", ignoreCase = true) }
-        line == null || !fitsScreen(line.substringAfter(" ").substringAfter(" ").trim('"'), screenSize)
+        val value = line?.substringAfter(" ")?.substringAfter(" ")?.trim('"')
+        value == null || !fitsScreen(value, screenSize) || (exactResolution && value != screenSize)
     }
     // A config carried over from another product (e.g. beta to launch) gets this product's portal and agent.
     val missingPortal = existing.none { it.startsWith("SET portal ", ignoreCase = true) }
