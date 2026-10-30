@@ -36,6 +36,7 @@ import app.gamenative.wow.legacy.LegacyClient
 import app.gamenative.wow.legacy.LegacyRenderer
 import app.gamenative.wow.legacy.LegacyServer
 import app.gamenative.wow.legacy.mods.AndroWherePatch
+import app.gamenative.wow.product.GameVersion
 import app.gamenative.wow.ui.addons.ClientModsController
 import app.gamenative.wow.ui.components.FwButton
 import app.gamenative.wow.ui.components.FwButtonKind
@@ -45,6 +46,9 @@ import app.gamenative.wow.ui.components.FwRow
 import app.gamenative.wow.ui.components.FwTextField
 import app.gamenative.wow.ui.theme.Fw
 import java.io.File
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * The 3.3.5a "Server" screen: the profile's servers, the selected server's password and how the login
@@ -54,16 +58,24 @@ import java.io.File
 fun LegacyServerScreen(launcher: LauncherController, onBack: () -> Unit) {
     var editing by remember { mutableStateOf<String?>(null) }
     var returnTo by remember { mutableStateOf<String?>(launcher.legacy.serverId) }
+    var solo by remember { mutableStateOf<SoloPage?>(null) }
     val server = editing?.let { id -> launcher.servers.firstOrNull { it.id == id } }
     BackHandler(enabled = server != null) {
         returnTo = editing
         editing = null
     }
+    BackHandler(enabled = solo != null && server == null) { solo = null }
     HintPage("Server", onBack, launcher.errorMessage) { setHint ->
-        if (server != null) {
+        if (solo != null && server == null) {
+            when (solo) {
+                SoloPage.DEVICE -> SoloDevicePage(launcher, onDone = { solo = null }, setHint)
+                else -> SoloPcPage(launcher, onAdded = { solo = null; editing = it }, onDone = { solo = null }, setHint)
+            }
+        } else if (server != null) {
             ServerPage(launcher, server, onDone = { returnTo = editing; editing = null }, setHint)
         } else {
             FwSection("Servers") { ServerList(launcher, returnTo, onEdit = { editing = it }, setHint) }
+            if (launcher.version == GameVersion.PRIVATE_335) FwSection("Your own server") { SoloSection(onOpen = { solo = it }, setHint) }
             FwSection(if (launcher.servers.size > 1) "Password for ${launcher.selectedServer.name}" else "Password") {
                 PasswordFields(launcher, launcher.selectedServer, setHint)
             }
@@ -245,6 +257,10 @@ private fun LoginSection(launcher: LauncherController, setHint: (String) -> Unit
         Text("Choose your client folder on the Client screen first.", style = Fw.Text)
         return
     }
+    if (!launcher.legacyGame.hasAndroWherePatches) {
+        Text("Controller Menus, which fills in your password on the login screen, is for 3.3.5a only for now. Type your account and password in the game.", style = Fw.Text)
+        return
+    }
     val root = File(settings.root)
     val scope = rememberCoroutineScope()
     val mods = remember(root) { ClientModsController(root, scope, launcher::recordClientMods) }
@@ -327,13 +343,21 @@ private fun FolderSection(launcher: LauncherController, setHint: (String) -> Uni
     val context = LocalContext.current
     val settings = launcher.legacy
     var folderError by remember { mutableStateOf<String?>(null) }
+    val scope = rememberCoroutineScope()
+    val game = launcher.legacyGame
     val picker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
         val path = StorageUtils.getPathFromTreeUri(context, uri) ?: return@rememberLauncherForActivityResult
-        val root = LegacyClient.findRoot(File(path))
-        folderError = if (root == null) "No ${LegacyClient.EXE} with a Data folder in $path." else null
-        root?.let {
-            val existing = LegacyClient.readRealmlist(it)
-            launcher.updateLegacy(settings.copy(root = it.absolutePath, realmlist = existing ?: settings.realmlist))
+        scope.launch {
+            val root = withContext(Dispatchers.IO) { LegacyClient.findRoot(File(path)) }
+            val build = root?.let { withContext(Dispatchers.IO) { LegacyClient.detectBuild(LegacyClient.exe(it)) } }
+            folderError = when {
+                root == null -> "No ${LegacyClient.EXE} with a Data folder in $path."
+                !game.accepts(build) -> "This folder has a $build client, and this profile is for ${game.label}. Make a profile for that version instead."
+                else -> null
+            }
+            if (folderError != null || root == null) return@launch
+            val existing = withContext(Dispatchers.IO) { LegacyClient.readRealmlist(root) }
+            launcher.updateLegacy(launcher.legacy.copy(root = root.absolutePath, realmlist = existing ?: launcher.legacy.realmlist))
         }
     }
     val first = remember { FocusRequester() }
