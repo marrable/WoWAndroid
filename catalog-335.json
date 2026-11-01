@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-31T12:59:37+00:00",
+ "generated": "2026-11-01T13:44:16+00:00",
  "addons": [
   {
    "repo": "Aldori15/Questie",
@@ -11,13 +11,13 @@
    "website": "https://github.com/Aldori15/Questie",
    "stars": 69,
    "downloads": 0,
-   "updated": "2026-10-31T05:55:43Z",
+   "updated": "2026-10-31T23:27:55Z",
    "requires": [],
    "files": {
     "wotlk335": {
-     "fileId": "8a2b87a3b80eb4fd221df1d255af425818a2e814",
-     "version": "2026-10-31 (8a2b87a)",
-     "url": "https://github.com/Aldori15/Questie/archive/8a2b87a3b80eb4fd221df1d255af425818a2e814.zip"
+     "fileId": "f1b5c606f582c7e588646fde8894919c68eedac5",
+     "version": "2026-10-31 (f1b5c60)",
+     "url": "https://github.com/Aldori15/Questie/archive/f1b5c606f582c7e588646fde8894919c68eedac5.zip"
     }
    }
   },
@@ -411,13 +411,13 @@
    "website": "https://github.com/KhalGH/PlateBuffs-WoTLK",
    "stars": 22,
    "downloads": 0,
-   "updated": "2026-09-29T23:37:05Z",
+   "updated": "2026-11-01T10:57:44Z",
    "requires": [],
    "files": {
     "wotlk335": {
-     "fileId": "6584ceb51a1e906be373ac1be61178658a968e50",
-     "version": "2026-09-29 (6584ceb)",
-     "url": "https://github.com/KhalGH/PlateBuffs-WoTLK/archive/6584ceb51a1e906be373ac1be61178658a968e50.zip"
+     "fileId": "7d92ee79462c477b75974bb6069fe07dd246c713",
+     "version": "2026-11-01 (7d92ee7)",
+     "url": "https://github.com/KhalGH/PlateBuffs-WoTLK/archive/7d92ee79462c477b75974bb6069fe07dd246c713.zip"
     }
    }
   },
@@ -609,7 +609,7 @@
    "author": "Arcitec",
    "icon": "https://avatars.githubusercontent.com/u/38923130?v=4",
    "website": "https://github.com/Arcitec/GearScoreLite_Reborn",
-   "stars": 13,
+   "stars": 14,
    "downloads": 0,
    "updated": "2024-06-27T18:27:43Z",
    "requires": [],
