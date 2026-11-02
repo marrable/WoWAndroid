@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-01T13:44:16+00:00",
+ "generated": "2026-11-02T16:30:27+00:00",
  "addons": [
   {
    "repo": "Aldori15/Questie",
@@ -11,13 +11,13 @@
    "website": "https://github.com/Aldori15/Questie",
    "stars": 69,
    "downloads": 0,
-   "updated": "2026-10-31T23:27:55Z",
+   "updated": "2026-11-02T05:14:46Z",
    "requires": [],
    "files": {
     "wotlk335": {
-     "fileId": "f1b5c606f582c7e588646fde8894919c68eedac5",
-     "version": "2026-10-31 (f1b5c60)",
-     "url": "https://github.com/Aldori15/Questie/archive/f1b5c606f582c7e588646fde8894919c68eedac5.zip"
+     "fileId": "42140b2ba24fca8bae82fec1694006887a23af8c",
+     "version": "2026-11-02 (42140b2)",
+     "url": "https://github.com/Aldori15/Questie/archive/42140b2ba24fca8bae82fec1694006887a23af8c.zip"
     }
    }
   },
@@ -29,7 +29,7 @@
    "author": "ErebusAres",
    "icon": "https://avatars.githubusercontent.com/u/3603760?v=4",
    "website": "https://github.com/ErebusAres/ZygorGuidesRemaster-3.3.5a_WOTLK",
-   "stars": 90,
+   "stars": 92,
    "downloads": 0,
    "updated": "2026-10-27T14:21:23Z",
    "requires": [],
@@ -411,13 +411,13 @@
    "website": "https://github.com/KhalGH/PlateBuffs-WoTLK",
    "stars": 22,
    "downloads": 0,
-   "updated": "2026-11-01T10:57:44Z",
+   "updated": "2026-11-02T01:36:28Z",
    "requires": [],
    "files": {
     "wotlk335": {
-     "fileId": "7d92ee79462c477b75974bb6069fe07dd246c713",
-     "version": "2026-11-01 (7d92ee7)",
-     "url": "https://github.com/KhalGH/PlateBuffs-WoTLK/archive/7d92ee79462c477b75974bb6069fe07dd246c713.zip"
+     "fileId": "fb22aa7f708fe3c809d46c30a679dacdc857cd94",
+     "version": "2026-11-02 (fb22aa7)",
+     "url": "https://github.com/KhalGH/PlateBuffs-WoTLK/archive/fb22aa7f708fe3c809d46c30a679dacdc857cd94.zip"
     }
    }
   },
@@ -609,7 +609,7 @@
    "author": "Arcitec",
    "icon": "https://avatars.githubusercontent.com/u/38923130?v=4",
    "website": "https://github.com/Arcitec/GearScoreLite_Reborn",
-   "stars": 14,
+   "stars": 15,
    "downloads": 0,
    "updated": "2024-06-27T18:27:43Z",
    "requires": [],
@@ -671,13 +671,13 @@
    "website": "https://github.com/KhalGH/BattleGroundHealers-WotLK",
    "stars": 13,
    "downloads": 0,
-   "updated": "2026-09-28T04:06:05Z",
+   "updated": "2026-11-02T01:24:02Z",
    "requires": [],
    "files": {
     "wotlk335": {
-     "fileId": "a1f531f2e19c8b4e8534584d30078471abbda02c",
-     "version": "2026-09-28 (a1f531f)",
-     "url": "https://github.com/KhalGH/BattleGroundHealers-WotLK/archive/a1f531f2e19c8b4e8534584d30078471abbda02c.zip"
+     "fileId": "a164f202827a4a0ab45779bba2cf945a055622eb",
+     "version": "2026-11-02 (a164f20)",
+     "url": "https://github.com/KhalGH/BattleGroundHealers-WotLK/archive/a164f202827a4a0ab45779bba2cf945a055622eb.zip"
     }
    }
   },
@@ -709,7 +709,7 @@
    "author": "s0h2x",
    "icon": "https://avatars.githubusercontent.com/u/33549022?v=4",
    "website": "https://github.com/s0h2x/Immersion-WotLK",
-   "stars": 66,
+   "stars": 67,
    "downloads": 0,
    "updated": "2024-11-06T06:53:37Z",
    "requires": [],

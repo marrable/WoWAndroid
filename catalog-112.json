@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-01T13:44:22+00:00",
+ "generated": "2026-11-02T16:30:34+00:00",
  "addons": [
   {
    "repo": "shagu/pfUI",
@@ -9,7 +9,7 @@
    "author": "shagu",
    "icon": "https://avatars.githubusercontent.com/u/11586807?v=4",
    "website": "https://github.com/shagu/pfUI",
-   "stars": 400,
+   "stars": 399,
    "downloads": 0,
    "updated": "2025-08-28T10:10:33Z",
    "requires": [],
@@ -29,7 +29,7 @@
    "author": "shagu",
    "icon": "https://avatars.githubusercontent.com/u/11586807?v=4",
    "website": "https://github.com/shagu/pfQuest",
-   "stars": 270,
+   "stars": 269,
    "downloads": 0,
    "updated": "2025-08-25T20:25:51Z",
    "requires": [],
@@ -91,7 +91,7 @@
    "author": "shagu",
    "icon": "https://avatars.githubusercontent.com/u/11586807?v=4",
    "website": "https://github.com/shagu/ShaguDPS",
-   "stars": 47,
+   "stars": 46,
    "downloads": 0,
    "updated": "2025-07-25T19:04:41Z",
    "requires": [],
