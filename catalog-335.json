@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-02T16:30:27+00:00",
+ "generated": "2026-11-03T14:36:36+00:00",
  "addons": [
   {
    "repo": "Aldori15/Questie",
@@ -11,13 +11,13 @@
    "website": "https://github.com/Aldori15/Questie",
    "stars": 69,
    "downloads": 0,
-   "updated": "2026-11-02T05:14:46Z",
+   "updated": "2026-11-02T21:15:47Z",
    "requires": [],
    "files": {
     "wotlk335": {
-     "fileId": "42140b2ba24fca8bae82fec1694006887a23af8c",
-     "version": "2026-11-02 (42140b2)",
-     "url": "https://github.com/Aldori15/Questie/archive/42140b2ba24fca8bae82fec1694006887a23af8c.zip"
+     "fileId": "d6f2e81b8be204af6211edf567436fb9426db310",
+     "version": "2026-11-02 (d6f2e81)",
+     "url": "https://github.com/Aldori15/Questie/archive/d6f2e81b8be204af6211edf567436fb9426db310.zip"
     }
    }
   },
@@ -91,13 +91,13 @@
    "website": "https://github.com/Zidras/DBM-Warmane",
    "stars": 236,
    "downloads": 0,
-   "updated": "2026-08-16T20:38:14Z",
+   "updated": "2026-11-02T19:11:40Z",
    "requires": [],
    "files": {
     "wotlk335": {
-     "fileId": "6165654fb413f4166b1c142809ae287b1227ba6a",
-     "version": "2026-08-16 (6165654)",
-     "url": "https://github.com/Zidras/DBM-Warmane/archive/6165654fb413f4166b1c142809ae287b1227ba6a.zip"
+     "fileId": "6f2f76e7af6642befbb9ca74ff8a766595426b7b",
+     "version": "2026-11-02 (6f2f76e)",
+     "url": "https://github.com/Zidras/DBM-Warmane/archive/6f2f76e7af6642befbb9ca74ff8a766595426b7b.zip"
     }
    }
   },
