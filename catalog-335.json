@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-03T14:36:36+00:00",
+ "generated": "2026-11-04T14:49:45+00:00",
  "addons": [
   {
    "repo": "Aldori15/Questie",
@@ -11,13 +11,13 @@
    "website": "https://github.com/Aldori15/Questie",
    "stars": 69,
    "downloads": 0,
-   "updated": "2026-11-02T21:15:47Z",
+   "updated": "2026-11-04T13:41:43Z",
    "requires": [],
    "files": {
     "wotlk335": {
-     "fileId": "d6f2e81b8be204af6211edf567436fb9426db310",
-     "version": "2026-11-02 (d6f2e81)",
-     "url": "https://github.com/Aldori15/Questie/archive/d6f2e81b8be204af6211edf567436fb9426db310.zip"
+     "fileId": "5d92173190c9c3b6d8737ddef2eb58b1b5c2b04b",
+     "version": "2026-11-04 (5d92173)",
+     "url": "https://github.com/Aldori15/Questie/archive/5d92173190c9c3b6d8737ddef2eb58b1b5c2b04b.zip"
     }
    }
   },
@@ -89,7 +89,7 @@
    "author": "Zidras",
    "icon": "https://avatars.githubusercontent.com/u/10605951?v=4",
    "website": "https://github.com/Zidras/DBM-Warmane",
-   "stars": 236,
+   "stars": 237,
    "downloads": 0,
    "updated": "2026-11-02T19:11:40Z",
    "requires": [],
@@ -669,7 +669,7 @@
    "author": "KhalGH",
    "icon": "https://avatars.githubusercontent.com/u/111320187?v=4",
    "website": "https://github.com/KhalGH/BattleGroundHealers-WotLK",
-   "stars": 13,
+   "stars": 14,
    "downloads": 0,
    "updated": "2026-11-02T01:24:02Z",
    "requires": [],
