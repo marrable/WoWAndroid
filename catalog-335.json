@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-05T14:55:32+00:00",
+ "generated": "2026-11-06T14:33:56+00:00",
  "addons": [
   {
    "repo": "Aldori15/Questie",
@@ -11,13 +11,13 @@
    "website": "https://github.com/Aldori15/Questie",
    "stars": 69,
    "downloads": 0,
-   "updated": "2026-11-04T13:41:43Z",
+   "updated": "2026-11-06T04:12:32Z",
    "requires": [],
    "files": {
     "wotlk335": {
-     "fileId": "5d92173190c9c3b6d8737ddef2eb58b1b5c2b04b",
-     "version": "2026-11-04 (5d92173)",
-     "url": "https://github.com/Aldori15/Questie/archive/5d92173190c9c3b6d8737ddef2eb58b1b5c2b04b.zip"
+     "fileId": "0c29f2bae91760a619aedf2d7fc32cf89fc0db87",
+     "version": "2026-11-06 (0c29f2b)",
+     "url": "https://github.com/Aldori15/Questie/archive/0c29f2bae91760a619aedf2d7fc32cf89fc0db87.zip"
     }
    }
   },
@@ -229,7 +229,7 @@
    "author": "hypopheria2k",
    "icon": "https://avatars.githubusercontent.com/u/242176551?v=4",
    "website": "https://github.com/hypopheria2k/xCT_Plus_wotlk",
-   "stars": 7,
+   "stars": 8,
    "downloads": 0,
    "updated": "2026-05-01T17:48:27Z",
    "requires": [],
@@ -249,7 +249,7 @@
    "author": "ElvUI-WotLK",
    "icon": "https://avatars.githubusercontent.com/u/6401782?v=4",
    "website": "https://github.com/ElvUI-WotLK/ElvUI",
-   "stars": 488,
+   "stars": 489,
    "downloads": 0,
    "updated": "2022-10-26T15:52:08Z",
    "requires": [],
@@ -411,13 +411,13 @@
    "website": "https://github.com/KhalGH/PlateBuffs-WoTLK",
    "stars": 22,
    "downloads": 0,
-   "updated": "2026-11-02T01:36:28Z",
+   "updated": "2026-11-06T09:30:31Z",
    "requires": [],
    "files": {
     "wotlk335": {
-     "fileId": "fb22aa7f708fe3c809d46c30a679dacdc857cd94",
-     "version": "2026-11-02 (fb22aa7)",
-     "url": "https://github.com/KhalGH/PlateBuffs-WoTLK/archive/fb22aa7f708fe3c809d46c30a679dacdc857cd94.zip"
+     "fileId": "0a90d17adb4150bb9239529e18cd83027156dfb3",
+     "version": "2026-11-06 (0a90d17)",
+     "url": "https://github.com/KhalGH/PlateBuffs-WoTLK/archive/0a90d17adb4150bb9239529e18cd83027156dfb3.zip"
     }
    }
   },
@@ -549,7 +549,7 @@
    "author": "bkader",
    "icon": "https://avatars.githubusercontent.com/u/4732702?v=4",
    "website": "https://github.com/bkader/Talented_WoTLK",
-   "stars": 31,
+   "stars": 32,
    "downloads": 0,
    "updated": "2022-07-08T13:36:19Z",
    "requires": [],
@@ -671,13 +671,13 @@
    "website": "https://github.com/KhalGH/BattleGroundHealers-WotLK",
    "stars": 14,
    "downloads": 0,
-   "updated": "2026-11-02T01:24:02Z",
+   "updated": "2026-11-06T09:23:56Z",
    "requires": [],
    "files": {
     "wotlk335": {
-     "fileId": "a164f202827a4a0ab45779bba2cf945a055622eb",
-     "version": "2026-11-02 (a164f20)",
-     "url": "https://github.com/KhalGH/BattleGroundHealers-WotLK/archive/a164f202827a4a0ab45779bba2cf945a055622eb.zip"
+     "fileId": "94189954e1e406a787102e0fb8e4338ccffccf98",
+     "version": "2026-11-06 (9418995)",
+     "url": "https://github.com/KhalGH/BattleGroundHealers-WotLK/archive/94189954e1e406a787102e0fb8e4338ccffccf98.zip"
     }
    }
   },
