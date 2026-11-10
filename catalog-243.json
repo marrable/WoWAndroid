@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-09T16:48:39+00:00",
+ "generated": "2026-11-10T15:12:22+00:00",
  "addons": [
   {
    "repo": "shagu/pfUI",
@@ -29,7 +29,7 @@
    "author": "shagu",
    "icon": "https://avatars.githubusercontent.com/u/11586807?v=4",
    "website": "https://github.com/shagu/pfQuest",
-   "stars": 269,
+   "stars": 268,
    "downloads": 0,
    "updated": "2025-08-25T20:25:51Z",
    "requires": [],

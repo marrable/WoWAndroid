@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-09T16:48:25+00:00",
+ "generated": "2026-11-10T15:12:04+00:00",
  "addons": [
   {
    "repo": "Aldori15/Questie",
@@ -9,15 +9,15 @@
    "author": "Aldori15",
    "icon": "https://avatars.githubusercontent.com/u/15916673?v=4",
    "website": "https://github.com/Aldori15/Questie",
-   "stars": 70,
+   "stars": 72,
    "downloads": 0,
-   "updated": "2026-11-06T04:12:32Z",
+   "updated": "2026-11-10T14:51:58Z",
    "requires": [],
    "files": {
     "wotlk335": {
-     "fileId": "0c29f2bae91760a619aedf2d7fc32cf89fc0db87",
-     "version": "2026-11-06 (0c29f2b)",
-     "url": "https://github.com/Aldori15/Questie/archive/0c29f2bae91760a619aedf2d7fc32cf89fc0db87.zip"
+     "fileId": "e83e64d51156c33f33cf440c6e18b39a22a0c2a2",
+     "version": "2026-11-10 (e83e64d)",
+     "url": "https://github.com/Aldori15/Questie/archive/e83e64d51156c33f33cf440c6e18b39a22a0c2a2.zip"
     }
    }
   },
@@ -189,7 +189,7 @@
    "author": "bkader",
    "icon": "https://avatars.githubusercontent.com/u/4732702?v=4",
    "website": "https://github.com/bkader/Skada-WoTLK",
-   "stars": 146,
+   "stars": 147,
    "downloads": 0,
    "updated": "2024-03-23T11:26:17Z",
    "requires": [],
@@ -369,7 +369,7 @@
    "author": "bkader",
    "icon": "https://avatars.githubusercontent.com/u/4732702?v=4",
    "website": "https://github.com/bkader/Grid2-WoTLK",
-   "stars": 27,
+   "stars": 28,
    "downloads": 0,
    "updated": "2022-10-04T04:33:28Z",
    "requires": [],
