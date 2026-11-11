@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-10T15:12:04+00:00",
+ "generated": "2026-11-11T14:41:34+00:00",
  "addons": [
   {
    "repo": "Aldori15/Questie",
@@ -9,15 +9,15 @@
    "author": "Aldori15",
    "icon": "https://avatars.githubusercontent.com/u/15916673?v=4",
    "website": "https://github.com/Aldori15/Questie",
-   "stars": 72,
+   "stars": 73,
    "downloads": 0,
-   "updated": "2026-11-10T14:51:58Z",
+   "updated": "2026-11-10T18:03:56Z",
    "requires": [],
    "files": {
     "wotlk335": {
-     "fileId": "e83e64d51156c33f33cf440c6e18b39a22a0c2a2",
-     "version": "2026-11-10 (e83e64d)",
-     "url": "https://github.com/Aldori15/Questie/archive/e83e64d51156c33f33cf440c6e18b39a22a0c2a2.zip"
+     "fileId": "bc867a6546afc71ba9cdb474a632bbf761cb53b9",
+     "version": "2026-11-10 (bc867a6)",
+     "url": "https://github.com/Aldori15/Questie/archive/bc867a6546afc71ba9cdb474a632bbf761cb53b9.zip"
     }
    }
   },
@@ -31,13 +31,13 @@
    "website": "https://github.com/ErebusAres/ZygorGuidesRemaster-3.3.5a_WOTLK",
    "stars": 93,
    "downloads": 0,
-   "updated": "2026-10-27T14:21:23Z",
+   "updated": "2026-11-11T00:28:04Z",
    "requires": [],
    "files": {
     "wotlk335": {
-     "fileId": "d2aae8d0f1f3782d964e4179907b215aab484787",
-     "version": "2026-10-27 (d2aae8d)",
-     "url": "https://github.com/ErebusAres/ZygorGuidesRemaster-3.3.5a_WOTLK/archive/d2aae8d0f1f3782d964e4179907b215aab484787.zip"
+     "fileId": "b8c7d70542695fd4fd7cc6a07be3095617ada7f2",
+     "version": "2026-11-11 (b8c7d70)",
+     "url": "https://github.com/ErebusAres/ZygorGuidesRemaster-3.3.5a_WOTLK/archive/b8c7d70542695fd4fd7cc6a07be3095617ada7f2.zip"
     }
    }
   },
@@ -389,7 +389,7 @@
    "author": "bkader",
    "icon": "https://avatars.githubusercontent.com/u/4732702?v=4",
    "website": "https://github.com/bkader/TidyPlates_WoTLK",
-   "stars": 51,
+   "stars": 52,
    "downloads": 0,
    "updated": "2022-08-07T15:20:35Z",
    "requires": [],
