@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-14T13:45:48+00:00",
+ "generated": "2026-11-16T16:20:54+00:00",
  "addons": [
   {
    "repo": "Aldori15/Questie",
@@ -291,13 +291,13 @@
    "website": "https://github.com/sirus-addons/MoveAnything",
    "stars": 10,
    "downloads": 0,
-   "updated": "2025-07-18T15:49:49Z",
+   "updated": "2026-11-16T12:11:19Z",
    "requires": [],
    "files": {
     "wotlk335": {
-     "fileId": "d82cf926086f7cf53a1c9fcf29502ae49651ebb7",
-     "version": "2025-07-18 (d82cf92)",
-     "url": "https://github.com/sirus-addons/MoveAnything/archive/d82cf926086f7cf53a1c9fcf29502ae49651ebb7.zip"
+     "fileId": "434a1aa268bcc62d897a89c79a8f1f87f52362c9",
+     "version": "2026-11-16 (434a1aa)",
+     "url": "https://github.com/sirus-addons/MoveAnything/archive/434a1aa268bcc62d897a89c79a8f1f87f52362c9.zip"
     }
    }
   },
