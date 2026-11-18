@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-16T16:21:07+00:00",
+ "generated": "2026-11-18T15:56:48+00:00",
  "addons": [
   {
    "repo": "shagu/pfUI",
@@ -29,7 +29,7 @@
    "author": "shagu",
    "icon": "https://avatars.githubusercontent.com/u/11586807?v=4",
    "website": "https://github.com/shagu/pfQuest",
-   "stars": 268,
+   "stars": 267,
    "downloads": 0,
    "updated": "2025-08-25T20:25:51Z",
    "requires": [],
@@ -49,7 +49,7 @@
    "author": "shagu",
    "icon": "https://avatars.githubusercontent.com/u/11586807?v=4",
    "website": "https://github.com/shagu/pfQuest-turtle",
-   "stars": 122,
+   "stars": 121,
    "downloads": 0,
    "updated": "2025-08-27T15:13:58Z",
    "requires": [
@@ -71,7 +71,7 @@
    "author": "shagu",
    "icon": "https://avatars.githubusercontent.com/u/11586807?v=4",
    "website": "https://github.com/shagu/ShaguTweaks",
-   "stars": 104,
+   "stars": 103,
    "downloads": 0,
    "updated": "2025-08-15T07:50:16Z",
    "requires": [],
