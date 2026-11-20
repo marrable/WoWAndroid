@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-18T15:56:37+00:00",
+ "generated": "2026-11-20T15:44:06+00:00",
  "addons": [
   {
    "repo": "Aldori15/Questie",
@@ -29,7 +29,7 @@
    "author": "ErebusAres",
    "icon": "https://avatars.githubusercontent.com/u/3603760?v=4",
    "website": "https://github.com/ErebusAres/ZygorGuidesRemaster-3.3.5a_WOTLK",
-   "stars": 93,
+   "stars": 92,
    "downloads": 0,
    "updated": "2026-11-11T00:28:04Z",
    "requires": [],
@@ -329,7 +329,7 @@
    "author": "RomanSpector",
    "icon": "https://avatars.githubusercontent.com/u/57856647?v=4",
    "website": "https://github.com/RomanSpector/CompactRaidFrame",
-   "stars": 44,
+   "stars": 43,
    "downloads": 0,
    "updated": "2026-02-09T18:05:04Z",
    "requires": [],
@@ -649,7 +649,7 @@
    "author": "ManneN1",
    "icon": "https://avatars.githubusercontent.com/u/16864855?v=4",
    "website": "https://github.com/ManneN1/GladiusEx-WotLK",
-   "stars": 14,
+   "stars": 13,
    "downloads": 0,
    "updated": "2026-11-07T22:42:39Z",
    "requires": [],
