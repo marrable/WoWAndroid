@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-20T15:44:06+00:00",
+ "generated": "2026-11-21T14:55:01+00:00",
  "addons": [
   {
    "repo": "Aldori15/Questie",
@@ -89,7 +89,7 @@
    "author": "Zidras",
    "icon": "https://avatars.githubusercontent.com/u/10605951?v=4",
    "website": "https://github.com/Zidras/DBM-Warmane",
-   "stars": 239,
+   "stars": 240,
    "downloads": 0,
    "updated": "2026-11-02T19:11:40Z",
    "requires": [],
@@ -409,7 +409,7 @@
    "author": "KhalGH",
    "icon": "https://avatars.githubusercontent.com/u/111320187?v=4",
    "website": "https://github.com/KhalGH/PlateBuffs-WoTLK",
-   "stars": 22,
+   "stars": 23,
    "downloads": 0,
    "updated": "2026-11-06T09:30:31Z",
    "requires": [],
@@ -451,13 +451,13 @@
    "website": "https://github.com/NoM0Re/OmniCC-WotLK",
    "stars": 16,
    "downloads": 0,
-   "updated": "2026-07-08T00:03:37Z",
+   "updated": "2026-11-21T06:36:05Z",
    "requires": [],
    "files": {
     "wotlk335": {
-     "fileId": "0564580a6f8c3a539a37990c7191a66339c51117",
-     "version": "2026-07-08 (0564580)",
-     "url": "https://github.com/NoM0Re/OmniCC-WotLK/archive/0564580a6f8c3a539a37990c7191a66339c51117.zip"
+     "fileId": "e531c1d073df94752b62dd12e7dfdf03bc02100e",
+     "version": "2026-11-21 (e531c1d)",
+     "url": "https://github.com/NoM0Re/OmniCC-WotLK/archive/e531c1d073df94752b62dd12e7dfdf03bc02100e.zip"
     }
    }
   },
@@ -609,7 +609,7 @@
    "author": "Arcitec",
    "icon": "https://avatars.githubusercontent.com/u/38923130?v=4",
    "website": "https://github.com/Arcitec/GearScoreLite_Reborn",
-   "stars": 15,
+   "stars": 16,
    "downloads": 0,
    "updated": "2024-06-27T18:27:43Z",
    "requires": [],
