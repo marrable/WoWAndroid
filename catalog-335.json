@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-22T14:50:41+00:00",
+ "generated": "2026-11-23T18:41:39+00:00",
  "addons": [
   {
    "repo": "Aldori15/Questie",
@@ -31,13 +31,13 @@
    "website": "https://github.com/ErebusAres/ZygorGuidesRemaster-3.3.5a_WOTLK",
    "stars": 92,
    "downloads": 0,
-   "updated": "2026-11-11T00:28:04Z",
+   "updated": "2026-11-22T19:18:54Z",
    "requires": [],
    "files": {
     "wotlk335": {
-     "fileId": "b8c7d70542695fd4fd7cc6a07be3095617ada7f2",
-     "version": "2026-11-11 (b8c7d70)",
-     "url": "https://github.com/ErebusAres/ZygorGuidesRemaster-3.3.5a_WOTLK/archive/b8c7d70542695fd4fd7cc6a07be3095617ada7f2.zip"
+     "fileId": "bd1629fbbeeb212106f8086ba57a9e89c2bb0c3e",
+     "version": "2026-11-22 (bd1629f)",
+     "url": "https://github.com/ErebusAres/ZygorGuidesRemaster-3.3.5a_WOTLK/archive/bd1629fbbeeb212106f8086ba57a9e89c2bb0c3e.zip"
     }
    }
   },
@@ -769,7 +769,7 @@
    "author": "bkader",
    "icon": "https://avatars.githubusercontent.com/u/4732702?v=4",
    "website": "https://github.com/bkader/SharedMedia",
-   "stars": 27,
+   "stars": 28,
    "downloads": 0,
    "updated": "2023-01-10T03:09:01Z",
    "requires": [],
