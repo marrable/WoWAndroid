@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-23T18:41:39+00:00",
+ "generated": "2026-11-25T17:34:24+00:00",
  "addons": [
   {
    "repo": "Aldori15/Questie",
@@ -11,13 +11,13 @@
    "website": "https://github.com/Aldori15/Questie",
    "stars": 73,
    "downloads": 0,
-   "updated": "2026-11-18T07:13:23Z",
+   "updated": "2026-11-25T09:09:19Z",
    "requires": [],
    "files": {
     "wotlk335": {
-     "fileId": "054953ba437bfaeaab45066a11af4deecc7976f0",
-     "version": "2026-11-18 (054953b)",
-     "url": "https://github.com/Aldori15/Questie/archive/054953ba437bfaeaab45066a11af4deecc7976f0.zip"
+     "fileId": "876a5b37567afdf0089b4e39c28cfcdc92388ede",
+     "version": "2026-11-25 (876a5b3)",
+     "url": "https://github.com/Aldori15/Questie/archive/876a5b37567afdf0089b4e39c28cfcdc92388ede.zip"
     }
    }
   },
