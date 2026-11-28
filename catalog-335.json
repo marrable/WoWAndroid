@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-26T17:15:18+00:00",
+ "generated": "2026-11-28T15:47:55+00:00",
  "addons": [
   {
    "repo": "Aldori15/Questie",
@@ -29,7 +29,7 @@
    "author": "ErebusAres",
    "icon": "https://avatars.githubusercontent.com/u/3603760?v=4",
    "website": "https://github.com/ErebusAres/ZygorGuidesRemaster-3.3.5a_WOTLK",
-   "stars": 92,
+   "stars": 93,
    "downloads": 0,
    "updated": "2026-11-22T19:18:54Z",
    "requires": [],
@@ -249,7 +249,7 @@
    "author": "ElvUI-WotLK",
    "icon": "https://avatars.githubusercontent.com/u/6401782?v=4",
    "website": "https://github.com/ElvUI-WotLK/ElvUI",
-   "stars": 489,
+   "stars": 490,
    "downloads": 0,
    "updated": "2022-10-26T15:52:08Z",
    "requires": [],
